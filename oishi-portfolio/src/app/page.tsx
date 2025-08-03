@@ -1,4 +1,6 @@
 import React from 'react';
+import Slider from '../components/Slider';
+
 
 const Portfolio = () => {
   return ( 
@@ -55,6 +57,11 @@ const Portfolio = () => {
           <p className="text-lg md:text-xl text-gray-600">Engineer</p>
           <div className="mt-10 w-[700]"><img src="/aws-badge.svg" className="w-full" alt="AWS 認定バッジ" /></div>
         </div>
+        
+        {/* スライダー - Splide版 */}
+        <Slider 
+          className="absolute bottom-8 right-8 z-10 hidden md:block" 
+        />
       </div>
 
       <div className='max-w-[100vw] md:max-w-[1200] mx-auto'>
