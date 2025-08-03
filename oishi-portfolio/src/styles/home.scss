@@ -1,0 +1,61 @@
+/* home */
+.home--inner{
+  overflow: hidden;
+}
+
+@keyframes scaleMvAnime {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.home--mv{
+  position: relative;
+  img{
+    width: 100%;
+    height: auto;
+  }
+}
+
+.home--mv-image{
+    position: absolute;
+    transform-origin: center center;
+    z-index: -1;
+  &-speed-1{
+    animation: scaleMvAnime 0.3s ease-out;
+  }
+  &-speed-2{
+    animation: scaleMvAnime 0.4s ease-out;
+  }
+  &-right-1{
+    right: -20vw;
+    top: -20vw;
+    width: 60vw;
+  }
+  &-right-2{
+    right: -30vw;
+    top: 5vw;
+    width: 60vw;
+  }
+  &-left-1{
+    left: -20vw;
+    top: 25vw;
+    width: 60vw;
+  }
+  &-left-2{
+    left: -13vw;
+    top: 37vw;
+    width: 60vw;
+  }
+}
+
+.home--mv-title{
+  position: absolute;
+  top: 6vw;
+  left: 5vw;
+}

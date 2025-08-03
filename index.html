@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Design Studio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleFloat 3s ease-in-out infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .lottie-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            z-index: 1;
+            opacity: 0.4;
+        }
+
+        .content-section {
+            padding: 100px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .section-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-lottie {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .lottie-container {
+                width: 350px;
+                height: 350px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="lottie-container" id="hero-lottie"></div>
+        
+        <div class="hero-content">
+            <h1 class="hero-title">Creative Design Studio</h1>
+            <p class="hero-subtitle">美しいデザインで、あなたのアイデアを現実に</p>
+            <a href="#content" class="cta-button">詳しく見る</a>
+        </div>
+    </section>
+
+    <section class="content-section" id="content">
+        <h2 class="section-title">私たちのサービス</h2>
+        <p class="section-text">
+            最新の技術と創造性を組み合わせて、印象的なデジタル体験を提供します。
+            お客様のビジョンを実現するために、私たちは常に革新的なソリューションを追求しています。
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-lottie" id="design-lottie"></div>
+                <h3>クリエイティブデザイン</h3>
+                <p>ユニークで魅力的なビジュアルデザインを作成し、ブランドの価値を最大化します。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-lottie" id="code-lottie"></div>
+                <h3>Webアニメーション</h3>
+                <p>Lottieやその他の最新技術を使用して、インタラクティブなアニメーションを制作します。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-lottie" id="rocket-lottie"></div>
+                <h3>パフォーマンス最適化</h3>
+                <p>美しいデザインと高速なパフォーマンスを両立させた、最適化されたWebサイトを構築します。</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Lottie公式サンプルのローディング
+        
+        // メインのヒーローアニメーション - データビジュアライゼーション風
+        fetch('https://assets3.lottiefiles.com/packages/lf20_V9t630.json')
+            .then(response => response.json())
+            .then(data => {
+                lottie.loadAnimation({
+                    container: document.getElementById('hero-lottie'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    animationData: data
+                });
+            })
+            .catch(() => {
+                // フォールバック用のシンプルなアニメーション
+                lottie.loadAnimation({
+                    container: document.getElementById('hero-lottie'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: 'https://assets2.lottiefiles.com/packages/lf20_w51pcehl.json'
+                });
+            });
+
+        // デザインアイコン
+        lottie.loadAnimation({
+            container: document.getElementById('design-lottie'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets4.lottiefiles.com/packages/lf20_qp1q7mct.json'
+        });
+
+        // コードアニメーション
+        lottie.loadAnimation({
+            container: document.getElementById('code-lottie'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets9.lottiefiles.com/packages/lf20_fcfjwiyb.json'
+        });
+
+        // ロケットアニメーション
+        lottie.loadAnimation({
+            container: document.getElementById('rocket-lottie'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'https://assets4.lottiefiles.com/temp/lf20_C22ize.json'
+        });
+
+        // スムーズスクロール
+        document.querySelector('.cta-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('#content').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // パララックス効果
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.lottie-container');
+            const speed = scrolled * 0.3;
+            parallax.style.transform = `translate(-50%, calc(-50% + ${speed}px))`;
+        });
+    </script>
+</body>
+</html>
