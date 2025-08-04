@@ -10,68 +10,47 @@ import {
   PrevButton,
   usePrevNextButtons
 } from './SliderArrowButtons'
-import { SlideData, SliderProps } from '../types/slider'
-
-// スライダーのデータ
-const slides: SlideData[] = [
-  {
-    id: 1,
-    title: "ECサイト構築",
-    description: "Next.js + TypeScriptで構築したモダンなECサイト",
-    category: "Web App",
-    link: "https://example.com/project1"
-  },
-  {
-    id: 2,
-    title: "AWS インフラ設計",
-    description: "スケーラブルなクラウドインフラストラクチャの設計・構築",
-    category: "Cloud",
-    link: "https://example.com/project2"
-  },
-  {
-    id: 3,
-    title: "モバイルアプリ",
-    description: "React Nativeを使用したクロスプラットフォームアプリ",
-    category: "Mobile",
-    link: "https://example.com/project3"
-  },
-  {
-    id: 4,
-    title: "データ分析基盤",
-    description: "機械学習パイプラインを含むデータ分析プラットフォーム",
-    category: "Data",
-    link: "https://example.com/project4"
-  },
-  {
-    id: 5,
-    title: "社内システム構築",
-    description: "業務効率化のための社内システム。権限管理とワークフロー機能を含む包括的なソリューション",
-    category: "System",
-    link: "https://example.com/internal-system",
-    tech: ["React", "Node.js", "PostgreSQL"],
-    year: "2023"
-  },
-  {
-    id: 6,
-    title: "AIチャットボット",
-    description: "自然言語処理を活用したインテリジェントなチャットボット。カスタマーサポートの自動化を実現",
-    category: "AI",
-    link: "https://example.com/ai-chatbot",
-    tech: ["OpenAI API", "Python", "FastAPI"],
-    year: "2025"
-  }
-]
+import { SliderProps } from '../types/slider'
+import { GitHubArticle } from '../types/github'
+import { getArticles } from '../lib/githubApi'
 
 const Slider: React.FC<SliderProps> = ({ 
   className = "", 
-  maxSlides = 6,
+  maxSlides = 10,
   showCategory = true 
 }) => {
-  const displaySlides = slides.slice(0, maxSlides)
+  const [articles, setArticles] = useState<GitHubArticle[]>([])
+  const [isLoading, setIsLoading] = useState(true)
   const [isPlaying, setIsPlaying] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   
+  // 記事データを取得する関数
+  const fetchArticles = async () => {
+    try {
+      setIsLoading(true)
+      setError(null)
+      
+      const data = await getArticles(10)
+      
+      if (data.length === 0) {
+        setError('記事が見つかりませんでした')
+      } else {
+        setArticles(data)
+      }
+    } catch (error) {
+      console.error('記事の取得に失敗しました:', error)
+      setError(`記事の取得に失敗しました: ${error}`)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    fetchArticles()
+  }, [])
+
   const autoplayPlugin = Autoplay({ 
-    delay: 3000, 
+    delay: 3500, 
     stopOnInteraction: false,
     stopOnMouseEnter: true 
   })
@@ -80,7 +59,7 @@ const Slider: React.FC<SliderProps> = ({
     loop: true,
     slidesToScroll: 1,
     skipSnaps: false,
-    align: 'start',
+    align: 'start'
   }
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [autoplayPlugin])
@@ -124,46 +103,88 @@ const Slider: React.FC<SliderProps> = ({
       .on('slideFocus', onScroll)
   }, [emblaApi, onScroll])
 
+  // ローディング表示
+  if (isLoading) {
+    return (
+      <div className='home--mv-slider mt-10 flex justify-end'>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-8 w-full max-w-4xl h-64 flex flex-col items-center justify-center">
+          <div className="text-gray-500 font-noto-sans-jp mb-2">記事を読み込み中...</div>
+        </div>
+      </div>
+    )
+  }
+
+  // エラー表示
+  if (error) {
+    return (
+      <div className='home--mv-slider mt-10 flex justify-end'>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-8 w-full max-w-4xl h-64 flex flex-col items-center justify-center">
+          <div className="text-red-500 font-noto-sans-jp mb-2">エラーが発生しました</div>
+          <div className="text-xs text-gray-600 text-center">{error}</div>
+          <button 
+            onClick={fetchArticles}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+          >
+            再試行
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  // 記事がない場合の表示
+  if (articles.length === 0) {
+    return (
+      <div className='home--mv-slider mt-10 flex justify-end'>
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-8 w-full max-w-4xl h-64 flex flex-col items-center justify-center">
+          <div className="text-gray-500 font-noto-sans-jp mb-2">記事が見つかりませんでした</div>
+          <div className="text-xs text-gray-400 text-center">
+            GitHubリポジトリ「ohishi-Ta/Zenn」の「articles」フォルダに記事がないか、<br/>
+            記事が非公開設定になっている可能性があります
+          </div>
+          <button 
+            onClick={fetchArticles}
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
+          >
+            再読み込み
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className={`embla ${className}`}>
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-8 w-full max-w-4xl h-64 relative">
+    <div className='home--mv-slider mt-10 flex justify-end'>
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-20 w-full max-w-4xl h-90">
         
         {/* スライダー本体 */}
-        <div className="embla__viewport overflow-hidden h-full" ref={emblaRef}>
-          <div className="embla__container flex h-full">
-            {displaySlides.map((slide, index) => (
-              <div key={slide.id} className="embla__slide flex-[0_0_33.333%] min-w-0 px-2">
-                <div className="h-full flex flex-col justify-between p-4 bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl relative group cursor-pointer">
+        <div className="overflow-hidden h-full" ref={emblaRef}>
+          <div className="flex h-full">
+            {articles.map((article, index) => (
+              <div key={article.slug} className="flex-[0_0_33.333%] min-w-0 px-2">
+                <div className="h-full flex flex-col justify-between p-4 from-blue-50 to-purple-50 rounded-xl relative group cursor-pointer home--mv-sliderItem">
                   
-                  {/* カテゴリバッジ */}
-                  {showCategory && slide.category && (
+                  {/* カテゴリバッジ（記事タイプ） */}
+                  {showCategory && (
                     <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-figtree z-10">
-                      {slide.category}
+                      {article.type === 'tech' ? 'Tech' : 'Idea'}
                     </div>
                   )}
                   
                   {/* メインコンテンツ */}
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 font-figtree group-hover:text-blue-600 transition-colors duration-300">
-                      {slide.title}
+                  <div className="flex-1 mt-6">
+                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-4 sliderItem--hoverText">
+                      {article.title}
                     </h3>
-                    <p className="text-sm text-gray-600 font-noto-sans-jp leading-relaxed line-clamp-3">
-                      {slide.description}
-                    </p>
                     
-                    {/* 技術スタック表示 */}
-                    {slide.tech && slide.tech.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {slide.tech.slice(0, 2).map((tech, techIndex) => (
-                          <span key={techIndex} className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-figtree">
-                            {tech}
+                    {/* トピックタグ表示 */}
+                    {article.topics && article.topics.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-2 font-figtree">
+                        {article.topics.map((topic, topicIndex) => (
+                          <span key={topicIndex} className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-figtree">
+                            {topic}
                           </span>
                         ))}
-                        {slide.tech.length > 2 && (
-                          <span className="text-xs bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-figtree">
-                            +{slide.tech.length - 2}
-                          </span>
-                        )}
                       </div>
                     )}
                   </div>
@@ -172,26 +193,25 @@ const Slider: React.FC<SliderProps> = ({
                   <div className="flex justify-between items-center mt-4">
                     <div className="flex items-center gap-2">
                       <div className="text-xs text-gray-500 font-figtree">
-                        {String(index + 1).padStart(2, '0')} / {String(displaySlides.length).padStart(2, '0')}
+                        {String(index + 1).padStart(2, '0')} / {String(articles.length).padStart(2, '0')}
                       </div>
-                      {slide.year && (
+                      {article.published_at && (
                         <div className="text-xs text-gray-400 font-figtree">
-                          {slide.year}
+                          {new Date(article.published_at).getFullYear()}
                         </div>
                       )}
                     </div>
                     
-                    {slide.link && (
-                      <a 
-                        href={slide.link}
-                        className="text-xs text-blue-500 hover:text-blue-700 font-figtree underline transition-colors duration-200"
-                        onClick={(e) => e.stopPropagation()}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        詳細を見る
-                      </a>
-                    )}
+                    {/* Zennの記事リンク */}
+                    <a 
+                      href={`https://zenn.dev/ohishi-ta/articles/${article.slug}`}
+                      className="text-xs text-blue-500 hover:text-blue-700 font-figtree underline transition-colors duration-200 sliderItem--hoverText"
+                      onClick={(e) => e.stopPropagation()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Zennで読む
+                    </a>
                   </div>
                 </div>
               </div>
@@ -207,7 +227,7 @@ const Slider: React.FC<SliderProps> = ({
           {/* 自動再生切り替えボタン */}
           <button
             onClick={toggleAutoplay}
-            className="w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200"
+            className="w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
             title={isPlaying ? '自動再生を停止' : '自動再生を開始'}
           >
             {isPlaying ? (

@@ -25,8 +25,8 @@ const Portfolio = () => {
       </header>
 
       {/* Main Visual */}
-      <div className="py-10 md:py-20 min-h-screen">
-        <div className='home--mv'>
+      <div className="min-h-screen">
+        <div className='home--mv md:w-[90vw] mx-auto'>
           <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
             <img 
               src="/mv-pink.svg" 
@@ -47,20 +47,21 @@ const Portfolio = () => {
               src="/mv-yellow.svg" 
             />
           </div>
+
+          <div className='home--mv-contents'>
+            <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+              TAKATO OISHI<br />
+              PORTFOLIO SITE
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600">Engineer</p>
+            <div className="mt-10 md:max-w-xl lg:max-w-3xl"><img src="/aws-badge.png" className="w-full" alt="AWS 認定バッジ" /></div>
+
+            {/* 右下スライダー - Splide版 */}
+            <Slider />
+          </div>
+
         </div>
-        <div className='home--mv-title max-w-[90vw] mx-auto'>
-          <h1 className="text-4xl md:text-7xl font-extrabold text-gray-900 mb-4 leading-tight">
-            TAKATO OISHI<br />
-            PORTFOLIO SITE
-          </h1>
-          <p className="text-lg md:text-xl text-gray-600">Engineer</p>
-          <div className="mt-10 w-[700]"><img src="/aws-badge.png" className="w-full" alt="AWS 認定バッジ" /></div>
-        </div>
-        
-        {/* 右下スライダー - Splide版 */}
-        <Slider 
-          className="right-8 z-10 hidden md:block" 
-        />
+
       </div>
 
       <div className='max-w-[100vw] md:max-w-[1200] mx-auto'>

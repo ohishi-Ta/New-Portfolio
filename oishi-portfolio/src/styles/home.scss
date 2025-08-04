@@ -54,8 +54,14 @@
   }
 }
 
-.home--mv-title{
-  position: absolute;
-  top: 6vw;
-  left: 5vw;
+.home--mv-sliderItem{
+  background-color: #ecf5ff;
+  transition: all 0.3s ease;
+  &:hover{
+    background-color: #013384;
+    .sliderItem--hoverText{
+      color: #fff;
+    }
+  }
 }
+

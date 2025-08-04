@@ -60,7 +60,7 @@ export const PrevButton: React.FC<PropType> = (props) => {
 
   return (
     <button
-      className="embla__button embla__button--prev w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 disabled:opacity-30"
+      className="embla__button embla__button--prev w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 disabled:opacity-30 cursor-pointer"
       type="button"
       {...restProps}
     >
@@ -80,7 +80,7 @@ export const NextButton: React.FC<PropType> = (props) => {
 
   return (
     <button
-      className="embla__button embla__button--next w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 disabled:opacity-30"
+      className="embla__button embla__button--next w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 disabled:opacity-30 cursor-pointer"
       type="button"
       {...restProps}
     >
