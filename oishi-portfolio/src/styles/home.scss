@@ -65,3 +65,19 @@
   }
 }
 
+.home--career-item{
+  position: relative;
+  &::after{
+    content: "";
+    background-color: #e9e9e9;
+    width: 2px;
+    height: 100%;
+    left: 50px;
+    position: absolute;
+  }
+  &:last-child{
+    &::after{
+      content: none;
+    }
+  }
+}

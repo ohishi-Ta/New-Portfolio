@@ -1,32 +1,17 @@
-import React from 'react';
 import Slider from '../components/Slider';
+import SkillSet from '../components/SkillSet';
+import CareerTimeline from '../components/CareerTimeline';
+import Header from '../components/Header';
 
 const Portfolio = () => {
   return ( 
     <div className="min-h-screen home--inner">
-      {/* Header */}
-      <header className="flex justify-end py-4 md:py-6 mr-5">
-        <nav>
-          <div className="flex space-x-2 md:space-x-6 bg-white rounded-full px-3 md:px-6 py-2 md:py-3 shadow-sm">
-            <button className="px-2 md:px-4 py-1 md:py-2 bg-gray-800 text-white rounded-full text-xs md:text-sm font-medium font-figtree">
-              HOME
-            </button>
-            <button className="px-2 md:px-4 py-1 md:py-2 text-gray-600 rounded-full text-xs md:text-sm font-medium hover:bg-gray-100 font-figtree">
-              PROFILE
-            </button>
-            <button className="px-2 md:px-4 py-1 md:py-2 text-gray-600 rounded-full text-xs md:text-sm font-medium hover:bg-gray-100 font-figtree">
-              WORKS
-            </button>
-            <button className="px-2 md:px-4 py-1 md:py-2 text-gray-600 rounded-full text-xs md:text-sm font-medium hover:bg-gray-100 font-figtree">
-              BLOG
-            </button>
-          </div>
-        </nav>
-      </header>
+
+      <Header />
 
       {/* Main Visual */}
       <div className="min-h-screen">
-        <div className='home--mv md:w-[90vw] mx-auto'>
+        <div className='home--mv w-[90vw] mx-auto'>
           <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
             <img 
               src="/mv-pink.svg" 
@@ -53,8 +38,8 @@ const Portfolio = () => {
               TAKATO OISHI<br />
               PORTFOLIO SITE
             </h1>
-            <p className="text-lg md:text-xl text-gray-600">Engineer</p>
-            <div className="mt-10 md:max-w-xl lg:max-w-3xl"><img src="/aws-badge.png" className="w-full" alt="AWS 認定バッジ" /></div>
+            <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
+            <div className="mt-10 md:max-w-xl lg:max-w-2xl"><img src="/aws-badge.png" className="w-full" alt="AWS 認定バッジ" /></div>
 
             {/* 右下スライダー - Splide版 */}
             <Slider />
@@ -66,7 +51,7 @@ const Portfolio = () => {
 
       <div className='max-w-[100vw] md:max-w-[1200] mx-auto'>
       {/* Profile Section */}
-      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
+      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
         
         <div className="mb-8">
@@ -76,9 +61,7 @@ const Portfolio = () => {
           <p className="text-sm md:text-base text-gray-700 font-noto-sans-jp">静岡県出身</p>
         </div>
         
-        <div className="mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12 font-figtree">SKILL SET</h2>
-        </div>
+        <SkillSet />
 
         <div className="mb-8 md:mb-12">
           <h3 className="text-lg md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">資格</h3>
@@ -99,19 +82,18 @@ const Portfolio = () => {
           </ul>
         </div>
 
-        <div>
-          <h3 className="text-lg md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">経歴</h3>
-        </div>
+        <CareerTimeline />
+
       </section>
 
 
       {/* Works Section */}
-      <section className="px-4 md:px-6 py-10 md:py-20">
+      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12">WORKS</h2>
       </section>
 
       {/* Blog Section */}
-      <section className="px-4 md:px-6 py-10 md:py-20">
+      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12">BLOG</h2>
         <button className="px-4 md:px-6 py-2 md:py-3 border border-gray-300 rounded-full text-sm md:text-base text-gray-700 hover:bg-gray-50">
           Zenn

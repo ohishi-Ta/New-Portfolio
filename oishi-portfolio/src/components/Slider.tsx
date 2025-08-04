@@ -103,6 +103,22 @@ const Slider: React.FC<SliderProps> = ({
       .on('slideFocus', onScroll)
   }, [emblaApi, onScroll])
 
+  // 日付フォーマット関数
+  const formatDate = (dateString: string) => {
+    if (!dateString) return ''
+    
+    try {
+      const date = new Date(dateString)
+      return date.toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric'
+      })
+    } catch (error) {
+      return ''
+    }
+  }
+
   // ローディング表示
   if (isLoading) {
     return (
@@ -161,59 +177,51 @@ const Slider: React.FC<SliderProps> = ({
         <div className="overflow-hidden h-full" ref={emblaRef}>
           <div className="flex h-full">
             {articles.map((article, index) => (
-              <div key={article.slug} className="flex-[0_0_33.333%] min-w-0 px-2">
-                <div className="h-full flex flex-col justify-between p-4 from-blue-50 to-purple-50 rounded-xl relative group cursor-pointer home--mv-sliderItem">
-                  
-                  {/* カテゴリバッジ（記事タイプ） */}
-                  {showCategory && (
-                    <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-figtree z-10">
-                      {article.type === 'tech' ? 'Tech' : 'Idea'}
-                    </div>
-                  )}
-                  
-                  {/* メインコンテンツ */}
-                  <div className="flex-1 mt-6">
-                    <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-4 sliderItem--hoverText">
-                      {article.title}
-                    </h3>
+              <div key={article.slug} className="flex-[0_0_100%] md:flex-[0_0_33.333%] min-w-0 px-2">
+                {/* カード全体をリンクに */}
+                <a 
+                  href={`https://zenn.dev/ohishi-ta/articles/${article.slug}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block h-full"
+                >
+                  <div className="h-full flex flex-col justify-between p-4 from-blue-50 to-purple-50 rounded-xl relative group cursor-pointer home--mv-sliderItem">
                     
-                    {/* トピックタグ表示 */}
-                    {article.topics && article.topics.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2 font-figtree">
-                        {article.topics.map((topic, topicIndex) => (
-                          <span key={topicIndex} className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-figtree">
-                            {topic}
-                          </span>
-                        ))}
+                    {/* カテゴリバッジ（記事タイプ） */}
+                    {showCategory && (
+                      <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-figtree z-10">
+                        {article.type === 'tech' ? 'Tech' : 'Idea'}
                       </div>
                     )}
-                  </div>
-                  
-                  {/* フッター */}
-                  <div className="flex justify-between items-center mt-4">
-                    <div className="flex items-center gap-2">
-                      <div className="text-xs text-gray-500 font-figtree">
-                        {String(index + 1).padStart(2, '0')} / {String(articles.length).padStart(2, '0')}
-                      </div>
-                      {article.published_at && (
-                        <div className="text-xs text-gray-400 font-figtree">
-                          {new Date(article.published_at).getFullYear()}
+                    
+                    {/* メインコンテンツ */}
+                    <div className="flex-1 mt-6">
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-4 sliderItem--hoverText">
+                        {article.title}
+                      </h3>
+                      
+                      {/* トピックタグ表示 */}
+                      {article.topics && article.topics.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-2 font-figtree">
+                          {article.topics.map((topic, topicIndex) => (
+                            <span key={topicIndex} className="text-xs bg-blue-100 text-blue-600 px-1.5 py-0.5 rounded font-figtree">
+                              {topic}
+                            </span>
+                          ))}
                         </div>
                       )}
                     </div>
                     
-                    {/* Zennの記事リンク */}
-                    <a 
-                      href={`https://zenn.dev/ohishi-ta/articles/${article.slug}`}
-                      className="text-xs text-blue-500 hover:text-blue-700 font-figtree underline transition-colors duration-200 sliderItem--hoverText"
-                      onClick={(e) => e.stopPropagation()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Zennで読む
-                    </a>
+                    {/* フッター - 投稿日のみ表示 */}
+                    <div className="flex justify-end items-center mt-4">
+                      {article.published_at && (
+                        <div className="text-xs text-gray-500 font-figtree sliderItem--hoverText">
+                          {formatDate(article.published_at)}
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </a>
               </div>
             ))}
           </div>
@@ -227,7 +235,7 @@ const Slider: React.FC<SliderProps> = ({
           {/* 自動再生切り替えボタン */}
           <button
             onClick={toggleAutoplay}
-            className="w-8 h-8 bg-white/80 hover:bg-white rounded-full shadow-md flex items-center justify-center transition-all duration-200 cursor-pointer"
+            className="w-8 h-8 bg-white/80 hover:bg-gray-100 rounded-full shadow-md flex items-center justify-center transition-colors duration-200 cursor-pointer"
             title={isPlaying ? '自動再生を停止' : '自動再生を開始'}
           >
             {isPlaying ? (
