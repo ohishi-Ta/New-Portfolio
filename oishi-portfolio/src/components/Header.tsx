@@ -6,7 +6,7 @@ const Header = () => {
     const pathname = usePathname();
     
     return(
-      <header className="flex justify-end py-4 md:py-0 md:pt-6 mr-5 sticky top-0 z-[9999]">
+      <header className="flex justify-end py-4 md:py-0 md:pt-6 mr-5 sticky top-0 z-[9998]">
         <nav>
           <div className="flex space-x-2 md:space-x-6 bg-white rounded-full px-3 md:px-6 py-2 md:py-3 shadow-sm">
             <a 
