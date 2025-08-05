@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP, Figtree } from 'next/font/google'
 import "./globals.scss";
 import "../styles/home.scss";
+import Header from '../components/Header';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -26,7 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
-      <body>{children}</body>
+      <body>
+        <div className="overflow-hidden">
+          <Header />
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

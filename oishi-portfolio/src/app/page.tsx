@@ -1,13 +1,10 @@
 import Slider from '../components/Slider';
 import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
-import Header from '../components/Header';
 
 const Portfolio = () => {
   return ( 
     <div className="min-h-screen home--inner">
-
-      <Header />
 
       {/* Main Visual */}
       <div className="min-h-screen">
