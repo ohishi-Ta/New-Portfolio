@@ -1,6 +1,7 @@
 import Slider from '../components/Slider';
 import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
+import WorksPreview from '../components/WorksPreview';
 
 const Portfolio = () => {
   return ( 
@@ -52,17 +53,17 @@ const Portfolio = () => {
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
         
         <div className="mb-8">
-          <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 font-noto-sans-jp">大石 崇登</h3>
-          <p className="text-gray-600 mb-4 font-noto-sans-jp">おおいし たかと</p>
-          <p className="text-sm md:text-base text-gray-700 font-noto-sans-jp">1996年1月14日生まれ</p>
-          <p className="text-sm md:text-base text-gray-700 font-noto-sans-jp">静岡県出身</p>
+          <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">大石 崇登</h3>
+          <p className="text-gray-600 mb-4">おおいし たかと</p>
+          <p className="text-sm md:text-base text-gray-700">1996年1月14日生まれ</p>
+          <p className="text-sm md:text-base text-gray-700">静岡県出身</p>
         </div>
         
         <SkillSet />
 
         <div className="mb-8 md:mb-12">
           <h3 className="text-lg md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">資格</h3>
-          <ul className="space-y-2 text-sm md:text-base text-gray-700 font-noto-sans-jp">
+          <ul className="space-y-2 text-sm md:text-base text-gray-700">
             <li>LPIC-1 2024年</li>
             <li>AWS Certified Cloud Practitioner 2024年</li>
             <li>AWS Certified Solutions Architect - Associate 2024年</li>
@@ -86,12 +87,13 @@ const Portfolio = () => {
 
       {/* Works Section */}
       <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12">WORKS</h2>
+        <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">WORKS</h2>
+        <WorksPreview />
       </section>
 
       {/* Blog Section */}
       <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 md:mb-12">BLOG</h2>
+        <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">BLOG</h2>
         <button className="px-4 md:px-6 py-2 md:py-3 border border-gray-300 rounded-full text-sm md:text-base text-gray-700 hover:bg-gray-50">
           Zenn
         </button>

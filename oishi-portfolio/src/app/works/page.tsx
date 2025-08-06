@@ -12,7 +12,6 @@ import { fetchWorks } from '@/lib/worksApi';
 import { extractCategories, filterWorksByCategory } from '@/utils/works';
 import type { Work } from '@/types/works';
 
-
 const ITEMS_PER_PAGE = 12;
 
 const Works = () => {

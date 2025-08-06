@@ -28,11 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
-      <body className="has-[.micromodal-slide.is-open]:overflow-hidden">
-        <div className="overflow-hidden">
-          <Header />
-          {children}
-        </div>
+      <body className="has-[.micromodal-slide.is-open]:overflow-hidden overflow-x-hidden">
+        <Header />
+        {children}
       </body>
     </html>
   );

@@ -84,14 +84,14 @@ const WorkModal = ({ selectedWork }: WorkModalProps) => {
               </div>
             </div>
           </div>
-
+                    
           {/* Description */}
           {selectedWork.body && (
             <div className="mb-8">
               <h4 className="text-xl font-semibold text-gray-900 mb-4">プロジェクト詳細</h4>
-              <div className="bg-white border border-gray-200 rounded-lg p-6">
+              <div className="bg-gradient-to-br from-white to-gray-50 border-2 border-gray-300 rounded-xl p-8 shadow-inner">
                 <div 
-                  className="prose prose-lg max-w-none text-gray-700 leading-relaxed"
+                  className="prose prose-lg max-w-none text-gray-800 leading-relaxed [&>*]:mb-4 [&>h1]:text-2xl [&>h1]:font-bold [&>h1]:text-gray-900 [&>h1]:mt-6 [&>h1]:mb-3 [&>h2]:text-xl [&>h2]:font-semibold [&>h2]:text-gray-900 [&>h2]:mt-5 [&>h2]:mb-2 [&>h3]:text-lg [&>h3]:font-semibold [&>h3]:text-gray-800 [&>h3]:mt-4 [&>h3]:mb-2 [&>ul]:list-disc [&>ul]:pl-6 [&>ol]:list-decimal [&>ol]:pl-6 [&>li]:mb-2 [&>p]:text-gray-700 [&>blockquote]:border-l-4 [&>blockquote]:border-blue-500 [&>blockquote]:pl-4 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>pre]:bg-gray-900 [&>pre]:text-gray-100 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto [&>code]:bg-gray-100 [&>code]:text-red-600 [&>code]:px-1 [&>code]:py-0.5 [&>code]:rounded [&>code]:text-sm [&>a]:text-blue-600 [&>a]:underline [&>a:hover]:text-blue-800 [&>strong]:font-bold [&>strong]:text-gray-900 [&>em]:italic [&>hr]:border-gray-300 [&>hr]:my-6 [&>table]:w-full [&>table]:border-collapse [&>table_th]:border [&>table_th]:border-gray-300 [&>table_th]:p-2 [&>table_th]:bg-gray-100 [&>table_td]:border [&>table_td]:border-gray-300 [&>table_td]:p-2"
                   dangerouslySetInnerHTML={{ __html: selectedWork.body }}
                 />
               </div>
