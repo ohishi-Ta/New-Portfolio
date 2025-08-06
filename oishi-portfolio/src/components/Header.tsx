@@ -6,9 +6,9 @@ import Link from 'next/link';
 const Header = () => {
     const pathname = usePathname();
     
-    // スムーススクロール処理
+    // PROFILEクリック時の処理
     const handleProfileClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-      // TOPページにいる場合
+      // TOPページにいる場合のみスムーススクロール
       if (pathname === '/') {
         e.preventDefault();
         const profileSection = document.getElementById('profile');
@@ -19,6 +19,7 @@ const Header = () => {
           });
         }
       }
+      // 他のページの場合はデフォルトのLink動作でページ遷移
     };
     
     return(

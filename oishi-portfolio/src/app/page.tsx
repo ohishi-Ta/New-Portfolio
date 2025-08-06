@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Slider from '../components/Slider';
 import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
@@ -6,29 +7,41 @@ import BlogPreview from '../components/BlogPreview';
 
 const Portfolio = () => {
   return ( 
-    <div className="min-h-screen home--inner">
+    <div className="home--inner">
 
       {/* Main Visual */}
-      <div className="min-h-screen">
+      <div className="">
         <div className='home--mv w-[90vw] mx-auto'>
           <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
-            <img 
+            <Image 
               src="/mv-pink.svg" 
+              alt=""
+              width={600}
+              height={600}
             />
           </div>
           <div className="home--mv-image-right-2 home--mv-image home--mv-image-speed-2">
-            <img 
+            <Image 
               src="/mv-orange.svg" 
+              alt=""
+              width={600}
+              height={600}
             />
           </div>
           <div className="home--mv-image-left-1 home--mv-image home--mv-image-speed-1">
-            <img 
+            <Image 
               src="/mv-blue.svg" 
+              alt=""
+              width={600}
+              height={600}
             />
           </div>
           <div className="home--mv-image-left-2 home--mv-image home--mv-image-speed-2">
-            <img 
+           <Image 
               src="/mv-yellow.svg" 
+              alt=""
+              width={600}
+              height={600}
             />
           </div>
 
@@ -38,9 +51,15 @@ const Portfolio = () => {
               PORTFOLIO SITE
             </h1>
             <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
-            <div className="mt-10 md:max-w-xl lg:max-w-2xl"><img src="/aws-badge.png" className="w-full" alt="AWS 認定バッジ" /></div>
-
-            {/* 右下スライダー - Splide版 */}
+            <div className="mt-10 md:max-w-xl lg:max-w-2xl">
+           <Image 
+              src="/aws-badge.png" 
+              alt="AWS 認定バッジ"
+              width={600}
+              height={200}
+              priority
+            />
+              </div>
             <Slider />
           </div>
 
