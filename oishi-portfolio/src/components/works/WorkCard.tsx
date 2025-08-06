@@ -2,8 +2,8 @@
 
 'use client';
 
-import { HiExternalLink, HiCode, HiPhotograph } from 'react-icons/hi';
-import { BiCategory } from 'react-icons/bi';
+import Image from 'next/image';
+import { HiExternalLink, HiPhotograph } from 'react-icons/hi';
 import type { Work } from '@/types/works';
 
 type WorkCardProps = {
@@ -20,11 +20,12 @@ const WorkCard = ({ work, onClick }: WorkCardProps) => {
       {/* 画像 */}
       <div className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
         {work.image?.url ? (
-          <img 
+          <Image 
             src={work.image.url} 
             alt={work.title}
-            className="w-full h-full object-cover object-top transition-transform duration-300 hover:scale-105"
-            loading="lazy"
+            fill
+            className="object-cover object-top transition-transform duration-300 hover:scale-105"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

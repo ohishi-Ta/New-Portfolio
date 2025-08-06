@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { HiExternalLink, HiClock, HiTag ,HiArrowRight } from 'react-icons/hi';
+import { HiArrowRight } from 'react-icons/hi';
 import { GitHubArticle } from '../types/github';
 import { getArticles } from '../lib/githubApi';
 
@@ -50,7 +50,7 @@ const BlogPreview = () => {
         month: 'numeric',
         day: 'numeric'
       });
-    } catch (error) {
+    } catch {
       return '';
     }
   };

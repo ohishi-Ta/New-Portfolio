@@ -12,16 +12,17 @@ type PaginationProps = {
 
 const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
   if (totalPages <= 1) return null;
-
+      
   const renderPageNumbers = () => {
     const pages = [];
-    const showPages = 5; // 表示するページ数
+    const showPages = 5;
     let startPage = Math.max(1, currentPage - Math.floor(showPages / 2));
     let endPage = Math.min(totalPages, startPage + showPages - 1);
 
     // 終端調整
     if (endPage - startPage + 1 < showPages) {
       startPage = Math.max(1, endPage - showPages + 1);
+      endPage = Math.min(totalPages, startPage + showPages - 1); // endPageを再計算
     }
 
     // 最初のページ

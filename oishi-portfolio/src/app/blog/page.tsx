@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import BlogCard from '@/components/blog/BlogCard';
 import Pagination from '@/components/works/Pagination';
@@ -12,7 +12,8 @@ import type { GitHubArticle } from '@/types/github';
 
 const ITEMS_PER_PAGE = 12;
 
-const Blog = () => {
+// メインコンポーネントを分離
+function BlogContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -81,13 +82,19 @@ const Blog = () => {
     const page = parseInt(searchParams.get('page') || '1', 10);
     const topic = searchParams.get('topic') || 'All';
     
-    if (page !== currentPage) {
-      setCurrentPage(page > 0 ? page : 1);
-    }
+    setCurrentPage(prevPage => {
+      if (page !== prevPage) {
+        return page > 0 ? page : 1;
+      }
+      return prevPage;
+    });
     
-    if (topic !== activeTopic) {
-      setActiveTopic(topic);
-    }
+    setActiveTopic(prevTopic => {
+      if (topic !== prevTopic) {
+        return topic;
+      }
+      return prevTopic;
+    });
   }, [searchParams]);
 
   // トピックとフィルタリング
@@ -232,6 +239,34 @@ const Blog = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Blog;
+// ローディングコンポーネント
+function BlogLoading() {
+  return (
+    <div className="mt-6">
+      <div className="bg-white px-6 py-18">
+        <div className="max-w-[1350px] mx-auto">
+          <h1 className="text-5xl font-extrabold px-6 font-figtree">BLOG</h1>
+        </div>
+      </div>
+      <div className="max-w-[1350px] mx-auto px-6 py-15">
+        <div className="flex justify-center items-center py-20">
+          <div className="text-center">
+            <div className="inline-block w-12 h-12 border-4 border-gray-200 border-t-gray-500 rounded-full animate-spin"></div>
+            <p className="mt-4 text-gray-600">読み込み中...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// メインエクスポート（Suspenseでラップ）
+export default function Blog() {
+  return (
+    <Suspense fallback={<BlogLoading />}>
+      <BlogContent />
+    </Suspense>
+  );
+}

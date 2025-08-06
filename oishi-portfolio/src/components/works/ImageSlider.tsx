@@ -2,6 +2,7 @@
 
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect, useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
@@ -49,12 +50,16 @@ const ImageSlider = ({ images, title }: ImageSliderProps) => {
           {images.map((image, index) => (
             <div key={index} className="flex-[0_0_100%] min-w-0">
               <div className="relative w-full aspect-[2/1] bg-gray-50 flex items-center justify-center rounded-xl overflow-hidden px-5 py-10">
-                <img
-                  src={image.url}
-                  alt={`${title} - Image ${index + 1}`}
-                  className="w-full h-full object-contain"
-                  loading="lazy"
-                />
+                <div className="relative w-full aspect-[2/1] bg-gray-50 flex items-center justify-center rounded-xl overflow-hidden px-5 py-10">
+                  <Image
+                    src={image.url}
+                    alt={`${title} - Image ${index + 1}`}
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
+                </div>      
                 <div className="absolute inset-0 bg-gradient-to-t from-black/5 to-transparent pointer-events-none"></div>
               </div>
             </div>

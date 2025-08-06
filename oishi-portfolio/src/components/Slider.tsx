@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react'
-import { EmblaCarouselType, EmblaOptionsType } from 'embla-carousel'
+import { EmblaOptionsType } from 'embla-carousel'
 import useEmblaCarousel from 'embla-carousel-react'
 import Autoplay from 'embla-carousel-autoplay'
 import {
@@ -15,11 +15,7 @@ import { GitHubArticle } from '../types/github'
 import { getArticles } from '../lib/githubApi'
 import Link from 'next/link';
 
-const Slider: React.FC<SliderProps> = ({ 
-  className = "", 
-  maxSlides = 10,
-  showCategory = true 
-}) => {
+const Slider: React.FC<SliderProps> = ({ showCategory = true }) => {
   const [articles, setArticles] = useState<GitHubArticle[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isPlaying, setIsPlaying] = useState(true)
@@ -38,9 +34,9 @@ const Slider: React.FC<SliderProps> = ({
       } else {
         setArticles(data)
       }
-    } catch (error) {
-      console.error('記事の取得に失敗しました:', error)
-      setError(`記事の取得に失敗しました: ${error}`)
+    } catch (err) {
+      console.error('記事の取得に失敗しました:', err)
+      setError('記事の取得に失敗しました')
     } finally {
       setIsLoading(false)
     }
@@ -64,7 +60,6 @@ const Slider: React.FC<SliderProps> = ({
   }
 
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [autoplayPlugin])
-  const [scrollProgress, setScrollProgress] = useState(0)
 
   const {
     prevBtnDisabled,
@@ -89,21 +84,6 @@ const Slider: React.FC<SliderProps> = ({
     }
   }, [emblaApi])
 
-  const onScroll = useCallback((emblaApi: EmblaCarouselType) => {
-    const progress = Math.max(0, Math.min(1, emblaApi.scrollProgress()))
-    setScrollProgress(progress * 100)
-  }, [])
-
-  useEffect(() => {
-    if (!emblaApi) return
-
-    onScroll(emblaApi)
-    emblaApi
-      .on('reInit', onScroll)
-      .on('scroll', onScroll)
-      .on('slideFocus', onScroll)
-  }, [emblaApi, onScroll])
-
   // 日付フォーマット関数
   const formatDate = (dateString: string) => {
     if (!dateString) return ''
@@ -115,7 +95,7 @@ const Slider: React.FC<SliderProps> = ({
         month: 'numeric',
         day: 'numeric'
       })
-    } catch (error) {
+    } catch {
       return ''
     }
   }
@@ -178,7 +158,7 @@ const Slider: React.FC<SliderProps> = ({
         {/* スライダー本体 */}
         <div className="overflow-hidden h-full" ref={emblaRef}>
           <div className="flex h-full">
-            {articles.map((article, index) => (
+            {articles.map((article) => (
               <div key={article.slug} className="flex-[0_0_100%] md:flex-[0_0_33.333%] min-w-0 px-2">
                 {/* カード全体をリンクに */}
                 <a 

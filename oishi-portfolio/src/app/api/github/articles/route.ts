@@ -22,6 +22,16 @@ interface GraphQLResponse {
   errors?: Array<{ message: string }>;
 }
 
+interface ArticleData {
+  slug: string;
+  title: string;
+  emoji: string;
+  type: string;
+  topics: string[];
+  published: boolean;
+  published_at: string;
+}
+
 export async function GET() {
   const token = process.env.GITHUB_TOKEN; // NEXT_PUBLIC_なし
   
@@ -91,7 +101,7 @@ export async function GET() {
         entry.type === 'blob' &&
         entry.object?.text
       )
-      .map((entry: GraphQLEntry) => {
+      .map((entry: GraphQLEntry): ArticleData | null => {
         try {
           if (!entry.object?.text) return null;
           
@@ -111,8 +121,10 @@ export async function GET() {
           return null;
         }
       })
-      .filter((article: any) => article !== null && article.published)
-      .sort((a: any, b: any) =>
+      .filter((article: ArticleData | null): article is ArticleData => 
+        article !== null && article.published
+      )
+      .sort((a: ArticleData, b: ArticleData) =>
         new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
       );
 

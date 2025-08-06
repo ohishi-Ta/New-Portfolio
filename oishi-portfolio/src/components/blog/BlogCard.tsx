@@ -21,7 +21,7 @@ const BlogCard = ({ article }: BlogCardProps) => {
         month: 'numeric',
         day: 'numeric'
       });
-    } catch (error) {
+    } catch {
       return '';
     }
   };

@@ -2,7 +2,7 @@
 
 'use client';
 
-import { HiX, HiExternalLink, HiTag, HiCode } from 'react-icons/hi';
+import { HiX, HiExternalLink, HiCode } from 'react-icons/hi';
 import { BiCategory } from 'react-icons/bi';
 import ImageSlider from './ImageSlider';
 import type { Work } from '@/types/works';

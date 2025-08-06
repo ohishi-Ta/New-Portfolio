@@ -2,6 +2,7 @@
 
 'use client';
 
+import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { HiArrowRight } from 'react-icons/hi';
@@ -86,12 +87,13 @@ const WorksPreview = () => {
             {/* 画像 */}
             <div className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
               {work.image?.url ? (
-                <img 
-                  src={work.image.url} 
-                  alt={work.title}
-                  className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                />
+                <Image 
+                    src={work.image.url} 
+                    alt={work.title}
+                    fill
+                    className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
                   <svg className="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
