@@ -39,7 +39,7 @@ const WorksPreview = () => {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-bold px-6 font-figtree">Works</h1>
+            <h1 className="text-5xl font-bold px-6 font-figtree">WORKS</h1>
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
@@ -58,7 +58,7 @@ const WorksPreview = () => {
   if (error) {
     return (
       <div className="text-center text-gray-500 py-12">
-        <p>作品の読み込みに失敗しました</p>
+        <p>読み込みに失敗しました</p>
         <p className="text-sm mt-2">{error}</p>
       </div>
     );

@@ -2,6 +2,7 @@ import Slider from '../components/Slider';
 import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
 import WorksPreview from '../components/WorksPreview';
+import BlogPreview from '../components/BlogPreview';
 
 const Portfolio = () => {
   return ( 
@@ -94,9 +95,7 @@ const Portfolio = () => {
       {/* Blog Section */}
       <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">BLOG</h2>
-        <button className="px-4 md:px-6 py-2 md:py-3 border border-gray-300 rounded-full text-sm md:text-base text-gray-700 hover:bg-gray-50">
-          Zenn
-        </button>
+        <BlogPreview />
       </section>
       </div>
     </div>

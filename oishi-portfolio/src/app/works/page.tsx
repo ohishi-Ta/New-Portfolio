@@ -129,7 +129,7 @@ const Works = () => {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-bold px-6 font-figtree">Works</h1>
+            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
@@ -150,7 +150,7 @@ const Works = () => {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-bold px-6 font-figtree">Works</h1>
+            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
@@ -168,7 +168,7 @@ const Works = () => {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-bold px-6 font-figtree">Works</h1>
+            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
             
             {/* カテゴリフィルター */}
             {categories.length > 1 && (
