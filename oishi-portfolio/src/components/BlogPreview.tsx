@@ -99,7 +99,7 @@ const BlogPreview = () => {
             {/* ヘッダー部分 */}
             <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-100">
               {/* タイトル */}
-              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-3 group-hover:text-blue-600 transition-colors">
                 {article.title}
               </h3>
             </div>

@@ -12,7 +12,7 @@ type Skill = {
 const SkillSet = () => {
   const frontendSkills = [
     { name: 'HTML/CSS', level: 90, color: 'text-orange-500' },
-    { name: 'JavaScript,jQuery', level: 80, color: 'text-yellow-500' },
+    { name: 'JavaScript・jQuery', level: 80, color: 'text-yellow-500' },
     { name: 'TypeScript', level: 60, color: 'text-blue-500' },
     { name: 'React', level: 60, color: 'text-blue-600' },
     { name: 'Next.js', level: 60, color: 'text-indigo-500' },

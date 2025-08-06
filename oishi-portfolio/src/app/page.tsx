@@ -48,7 +48,7 @@ const Portfolio = () => {
 
       </div>
 
-      <div className='max-w-[100vw] md:max-w-[1200] mx-auto'>
+      <div id="profile" className='max-w-[100vw] md:max-w-[1200] mx-auto'>
       {/* Profile Section */}
       <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>

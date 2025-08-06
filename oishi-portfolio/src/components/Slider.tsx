@@ -13,6 +13,7 @@ import {
 import { SliderProps } from '../types/slider'
 import { GitHubArticle } from '../types/github'
 import { getArticles } from '../lib/githubApi'
+import Link from 'next/link';
 
 const Slider: React.FC<SliderProps> = ({ 
   className = "", 
@@ -249,6 +250,16 @@ const Slider: React.FC<SliderProps> = ({
               </svg>
             )}
           </button>
+        </div>
+        
+      {/* もっと見るボタン */}
+        <div className="text-right mt-5">
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 hover:underline font-medium mr-3"
+          >
+            詳しくはこちら →
+          </Link>
         </div>
       </div>
     </div>
