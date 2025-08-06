@@ -133,7 +133,12 @@ const Works = () => {
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
-          <div className="text-center text-gray-500">読み込み中...</div>
+          <div className="flex justify-center items-center py-20">
+            <div className="text-center">
+              <div className="inline-block w-12 h-12 border-4 border-gray-200 border-t-gray-500 rounded-full animate-spin"></div>
+              <p className="mt-4 text-gray-600">読み込み中...</p>
+            </div>
+          </div>
         </div>
       </div>
     );

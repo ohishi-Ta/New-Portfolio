@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { HiExternalLink, HiArrowRight } from 'react-icons/hi';
+import { HiArrowRight } from 'react-icons/hi';
 import { fetchWorks } from '@/lib/worksApi';
 import type { Work } from '@/types/works';
 
@@ -32,13 +32,24 @@ const WorksPreview = () => {
     loadWorks();
   }, []);
 
+
   // ローディング表示
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {[...Array(6)].map((_, i) => (
-          <div key={i} className="bg-gray-100 rounded-lg h-64 animate-pulse"></div>
-        ))}
+      <div className="mt-6">
+        <div className="bg-white px-6 py-18">
+          <div className="max-w-[1350px] mx-auto">
+            <h1 className="text-5xl font-bold px-6 font-figtree">Works</h1>
+          </div>
+        </div>
+        <div className="max-w-[1350px] mx-auto px-6 py-15">
+          <div className="flex justify-center items-center py-20">
+            <div className="text-center">
+              <div className="inline-block w-12 h-12 border-4 border-gray-200 border-t-gray-500 rounded-full animate-spin"></div>
+              <p className="mt-4 text-gray-600">読み込み中...</p>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -67,9 +78,10 @@ const WorksPreview = () => {
       {/* 作品グリッド */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
         {worksData.map((work) => (
-          <div 
+          <Link 
             key={work.id}
-            className="group bg-white rounded-lg shadow-md overflow-hidden border hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
+            href="/works"
+            className="group bg-white rounded-lg shadow-md overflow-hidden border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer block"
           >
             {/* 画像 */}
             <div className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
@@ -103,7 +115,7 @@ const WorksPreview = () => {
                 {work.title}
               </h3>
               
-              {/* 技術タグ（最大3つまで表示） */}
+              {/* 技術タグ */}
               <div className="flex flex-wrap gap-1 mb-3">
                 {work.tags.map((tag) => (
                   <span key={tag.id} className="inline-flex items-center text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
@@ -112,7 +124,7 @@ const WorksPreview = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

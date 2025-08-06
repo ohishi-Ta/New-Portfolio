@@ -124,7 +124,8 @@ const Slider: React.FC<SliderProps> = ({
     return (
       <div className='home--mv-slider mt-10 flex justify-end'>
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-8 w-full max-w-4xl h-64 flex flex-col items-center justify-center">
-          <div className="text-gray-500 font-noto-sans-jp mb-2">記事を読み込み中...</div>
+          <div className="inline-block w-10 h-10 border-3 border-gray-200 border-t-gray-500 rounded-full animate-spin"></div>
+          <div className="text-gray-500 font-noto-sans-jp mt-3 text-sm">記事を読み込み中...</div>
         </div>
       </div>
     )
