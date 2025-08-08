@@ -60,6 +60,14 @@ const Portfolio = () => {
               priority
             />
               </div>
+            <iframe 
+              src="https://ai-tuber-qjmorhaep-ohishitas-projects.vercel.app/"
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin"
+              width={800}
+              height={600}
+              >
+            </iframe>
             <Slider />
           </div>
 
