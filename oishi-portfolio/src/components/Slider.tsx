@@ -153,13 +153,13 @@ const Slider: React.FC<SliderProps> = ({ showCategory = true }) => {
 
   return (
     <div className='home--mv-slider mt-10 flex justify-end'>
-      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-20 w-full max-w-4xl h-90">
+      <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-4 pb-20 w-full h-[400]">
         
         {/* スライダー本体 */}
         <div className="overflow-hidden h-full" ref={emblaRef}>
           <div className="flex h-full">
             {articles.map((article) => (
-              <div key={article.slug} className="flex-[0_0_100%] md:flex-[0_0_33.333%] min-w-0 px-2">
+              <div key={article.slug} className="flex-[0_0_100%] md:flex-[0_0_20%] min-w-0 px-2">
                 {/* カード全体をリンクに */}
                 <a 
                   href={`https://zenn.dev/ohishi-ta/articles/${article.slug}`}

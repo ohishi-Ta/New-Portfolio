@@ -18,6 +18,7 @@ const Portfolio = () => {
               alt=""
               width={600}
               height={600}
+              priority
             />
           </div>
           <div className="home--mv-image-right-2 home--mv-image home--mv-image-speed-2">
@@ -26,6 +27,7 @@ const Portfolio = () => {
               alt=""
               width={600}
               height={600}
+              priority
             />
           </div>
           <div className="home--mv-image-left-1 home--mv-image home--mv-image-speed-1">
@@ -34,6 +36,7 @@ const Portfolio = () => {
               alt=""
               width={600}
               height={600}
+              priority
             />
           </div>
           <div className="home--mv-image-left-2 home--mv-image home--mv-image-speed-2">
@@ -42,32 +45,38 @@ const Portfolio = () => {
               alt=""
               width={600}
               height={600}
+              priority
             />
           </div>
 
           <div className='home--mv-contents'>
-            <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
-              TAKATO OISHI<br />
-              PORTFOLIO SITE
-            </h1>
-            <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
-            <div className="mt-10 md:max-w-xl lg:max-w-2xl">
-           <Image 
-              src="/aws-badge.png" 
-              alt="AWS 認定バッジ"
-              width={600}
-              height={200}
-              priority
-            />
-              </div>
-            <iframe 
-              src="https://ai-tuber-qjmorhaep-ohishitas-projects.vercel.app/"
-              loading="lazy"
-              sandbox="allow-scripts allow-same-origin"
-              width={800}
-              height={600}
-              >
-            </iframe>
+            <div className='flex justify-between'>
+              <div className=''>
+                <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+                  TAKATO OISHI<br />
+                  PORTFOLIO SITE
+                </h1>
+                <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
+                <div className="mt-10 md:max-w-xl lg:max-w-2xl">
+                  <Image 
+                      src="/aws-badge.png" 
+                      alt="AWS 認定バッジ"
+                      width={600}
+                      height={200}
+                      priority
+                    />
+                  </div>
+                </div>
+              <iframe 
+                src="https://ai-tuber-kit.vercel.app/"
+                loading="lazy"
+                sandbox="allow-scripts allow-same-origin"
+                width={900}
+                height={600}
+                className='hidden lg:block'
+                >
+              </iframe>
+            </div>
             <Slider />
           </div>
 
