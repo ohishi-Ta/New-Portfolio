@@ -1,16 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// 認証が必要なパス
-const protectedPaths = [
-  '/admin',
-  '/dashboard',
-  '/profile',
-  // 必要に応じて追加
-];
-
-// 認証不要なパス（ログイン済みユーザーがアクセスすべきでない）
-const authPaths = [
+// 認証不要なパス（誰でもアクセス可能）
+const publicPaths = [
   '/login',
   '/signup',
 ];
@@ -18,37 +10,40 @@ const authPaths = [
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   
-  // 保護されたパスかチェック
-  const isProtectedPath = protectedPaths.some(path => 
-    pathname.startsWith(path)
-  );
-  
-  // 認証パスかチェック
-  const isAuthPath = authPaths.some(path => 
+  // 公開パスかチェック
+  const isPublicPath = publicPaths.some(path => 
     pathname.startsWith(path)
   );
   
   // Amplify認証トークンをCookieから取得
   const cookies = request.cookies;
-  const authTokens = [
-    cookies.get('CognitoIdentityServiceProvider.*.idToken'),
-    cookies.get('CognitoIdentityServiceProvider.*.accessToken'),
-    cookies.get('CognitoIdentityServiceProvider.*.refreshToken'),
-  ];
   
-  // いずれかのトークンが存在すれば認証済みとみなす
-  const isAuthenticated = authTokens.some(token => token?.value);
+  // Cognitoの実際のCookie名を探す
+  const cognitoCookies = Array.from(cookies.getAll()).filter(cookie => 
+    cookie.name.includes('CognitoIdentityServiceProvider')
+  );
   
-  // 保護されたパスに未認証でアクセスした場合
-  if (isProtectedPath && !isAuthenticated) {
+  // トークンの存在を確認
+  const hasIdToken = cognitoCookies.some(cookie => 
+    cookie.name.includes('.idToken')
+  );
+  const hasAccessToken = cognitoCookies.some(cookie => 
+    cookie.name.includes('.accessToken')
+  );
+  
+  const isAuthenticated = hasIdToken && hasAccessToken;
+  
+  // 公開パス以外で未認証の場合はログインへリダイレクト
+  if (!isPublicPath && !isAuthenticated) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(loginUrl);
   }
   
-  // 認証済みユーザーがログインページにアクセスした場合
-  if (isAuthPath && isAuthenticated) {
-    return NextResponse.redirect(new URL('/', request.url));
+  // 認証済みユーザーがログインページにアクセスした場合はホームへ
+  if (isPublicPath && isAuthenticated) {
+    const redirectTo = request.nextUrl.searchParams.get('from') || '/';
+    return NextResponse.redirect(new URL(redirectTo, request.url));
   }
   
   return NextResponse.next();
@@ -57,14 +52,6 @@ export async function middleware(request: NextRequest) {
 // ミドルウェアを適用するパスの設定
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next).*)',
   ],
 };
