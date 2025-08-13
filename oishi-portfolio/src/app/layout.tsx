@@ -4,6 +4,7 @@ import "./globals.scss";
 import "../styles/home.scss";
 import "../styles/works.scss";
 import Header from '../components/Header';
+import AuthProvider from '@/components/AuthProvider';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -15,23 +16,22 @@ const figtree = Figtree({
   variable: '--font-figtree',
 })
 
-
 export const metadata: Metadata = {
   title: "TAKATO OISHI PORTFOLIO SITE",
   description: "大石崇登のポートフォリオサイトです",
   robots: {
-  index: false,
-  follow: false,
-  nocache: true,
-  noarchive: true,
-  noimageindex: true,
-  nosnippet: true,
-  googleBot: {
     index: false,
     follow: false,
+    nocache: true,
+    noarchive: true,
     noimageindex: true,
+    nosnippet: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
   },
-},
 };
 
 export default function RootLayout({
@@ -42,8 +42,10 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
       <body className="has-[.micromodal-slide.is-open]:overflow-hidden overflow-x-hidden">
-        <Header />
-        {children}
+        <AuthProvider>
+          <Header />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

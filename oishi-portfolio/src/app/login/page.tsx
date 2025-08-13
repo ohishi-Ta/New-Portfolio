@@ -1,14 +1,18 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { loginAction, signUpAction, confirmSignUpAction } from '@/lib/auth-actions';
+import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { clientSignIn, clientSignUp, clientConfirmSignUp } from '@/lib/auth-client';
+import { useAuth } from '@/components/AuthProvider';
 import { HiUser, HiMail, HiLockClosed, HiKey } from 'react-icons/hi';
 
 type FormMode = 'login' | 'signup' | 'confirm';
 
 export default function LoginPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
+  const { checkAuth } = useAuth();
+  
   const [mode, setMode] = useState<FormMode>('login');
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
@@ -16,38 +20,42 @@ export default function LoginPage() {
   const [signUpUsername, setSignUpUsername] = useState('');
   
   const redirectTo = searchParams.get('from') || '/';
-  const confirmed = searchParams.get('confirmed');
-  
-  useEffect(() => {
-    if (confirmed === 'true') {
-      setSuccess('メールアドレスの確認が完了しました。ログインしてください。');
-      setMode('login');
-    }
-  }, [confirmed]);
   
   // ログイン処理
-  const handleLogin = async (formData: FormData) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError('');
     setLoading(true);
     
-    formData.append('redirectTo', redirectTo);
-    const result = await loginAction(formData);
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get('username') as string;
+    const password = formData.get('password') as string;
     
-    if (!result.success) {
+    const result = await clientSignIn(username, password);
+    
+    if (result.success) {
+      await checkAuth(); // 認証状態を更新
+      router.push(redirectTo);
+    } else {
       setError(result.error || 'ログインに失敗しました');
       setLoading(false);
     }
   };
   
   // 新規登録処理
-  const handleSignUp = async (formData: FormData) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError('');
     setLoading(true);
     
+    const formData = new FormData(e.currentTarget);
     const username = formData.get('username') as string;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    
     setSignUpUsername(username);
     
-    const result = await signUpAction(formData);
+    const result = await clientSignUp(username, email, password);
     
     setLoading(false);
     
@@ -60,14 +68,21 @@ export default function LoginPage() {
   };
   
   // 確認コード検証処理
-  const handleConfirm = async (formData: FormData) => {
+  const handleConfirm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setError('');
     setLoading(true);
     
-    formData.append('username', signUpUsername);
-    const result = await confirmSignUpAction(formData);
+    const formData = new FormData(e.currentTarget);
+    const confirmationCode = formData.get('confirmationCode') as string;
     
-    if (!result.success) {
+    const result = await clientConfirmSignUp(signUpUsername, confirmationCode);
+    
+    if (result.success) {
+      setSuccess('メールアドレスの確認が完了しました。ログインしてください。');
+      setMode('login');
+      setLoading(false);
+    } else {
       setError(result.error || '確認コードの検証に失敗しました');
       setLoading(false);
     }
@@ -139,7 +154,7 @@ export default function LoginPage() {
           
           {/* ログインフォーム */}
           {mode === 'login' && (
-            <form action={handleLogin} className="space-y-6">
+            <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
                   ユーザー名
@@ -190,7 +205,7 @@ export default function LoginPage() {
           
           {/* 新規登録フォーム */}
           {mode === 'signup' && (
-            <form action={handleSignUp} className="space-y-6">
+            <form onSubmit={handleSignUp} className="space-y-6">
               <div>
                 <label htmlFor="signup-username" className="block text-sm font-medium text-gray-700 mb-2">
                   ユーザー名
@@ -263,7 +278,7 @@ export default function LoginPage() {
           
           {/* 確認コード入力フォーム */}
           {mode === 'confirm' && (
-            <form action={handleConfirm} className="space-y-6">
+            <form onSubmit={handleConfirm} className="space-y-6">
               <div className="mb-6">
                 <h3 className="text-lg font-medium text-gray-900">メールアドレスの確認</h3>
                 <p className="mt-2 text-sm text-gray-600">
