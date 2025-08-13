@@ -4,7 +4,6 @@ import "./globals.scss";
 import "../styles/home.scss";
 import "../styles/works.scss";
 import Header from '../components/Header';
-import AuthProvider from '@/components/AuthProvider';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -42,10 +41,8 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
       <body className="has-[.micromodal-slide.is-open]:overflow-hidden overflow-x-hidden">
-        <AuthProvider>
           <Header />
           {children}
-        </AuthProvider>
       </body>
     </html>
   );

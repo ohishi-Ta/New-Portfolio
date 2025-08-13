@@ -1,9 +1,9 @@
+// src/app/login/page.tsx
+
 'use client';
 
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { clientSignIn, clientSignUp, clientConfirmSignUp } from '@/lib/auth-client';
-import { useAuth } from '@/components/AuthProvider';
 import { HiUser, HiMail, HiLockClosed, HiKey } from 'react-icons/hi';
 
 type FormMode = 'login' | 'signup' | 'confirm';
@@ -11,7 +11,6 @@ type FormMode = 'login' | 'signup' | 'confirm';
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { checkAuth } = useAuth();
   
   const [mode, setMode] = useState<FormMode>('login');
   const [error, setError] = useState<string>('');
@@ -31,13 +30,30 @@ export default function LoginPage() {
     const username = formData.get('username') as string;
     const password = formData.get('password') as string;
     
-    const result = await clientSignIn(username, password);
-    
-    if (result.success) {
-      await checkAuth(); // 認証状態を更新
-      router.push(redirectTo);
-    } else {
-      setError(result.error || 'ログインに失敗しました');
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'login',
+          username,
+          password,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        router.push(redirectTo);
+        router.refresh(); // ルーターキャッシュをリフレッシュ
+      } else {
+        setError(data.error || 'ログインに失敗しました');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('ネットワークエラーが発生しました');
       setLoading(false);
     }
   };
@@ -55,15 +71,38 @@ export default function LoginPage() {
     
     setSignUpUsername(username);
     
-    const result = await clientSignUp(username, email, password);
-    
-    setLoading(false);
-    
-    if (result.success) {
-      setSuccess('確認コードをメールアドレスに送信しました');
-      setMode('confirm');
-    } else {
-      setError(result.error || '登録に失敗しました');
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'signup',
+          username,
+          email,
+          password,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        if (data.needsConfirmation) {
+          setSuccess('確認コードをメールアドレスに送信しました');
+          setMode('confirm');
+        } else {
+          // 確認不要の場合は直接ログイン画面へ
+          setSuccess('登録が完了しました。ログインしてください。');
+          setMode('login');
+        }
+      } else {
+        setError(data.error || '登録に失敗しました');
+      }
+    } catch (err) {
+      setError('ネットワークエラーが発生しました');
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -76,14 +115,30 @@ export default function LoginPage() {
     const formData = new FormData(e.currentTarget);
     const confirmationCode = formData.get('confirmationCode') as string;
     
-    const result = await clientConfirmSignUp(signUpUsername, confirmationCode);
-    
-    if (result.success) {
-      setSuccess('メールアドレスの確認が完了しました。ログインしてください。');
-      setMode('login');
-      setLoading(false);
-    } else {
-      setError(result.error || '確認コードの検証に失敗しました');
+    try {
+      const response = await fetch('/api/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'confirm',
+          username: signUpUsername,
+          confirmationCode,
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSuccess('メールアドレスの確認が完了しました。ログインしてください。');
+        setMode('login');
+      } else {
+        setError(data.error || '確認コードの検証に失敗しました');
+      }
+    } catch (err) {
+      setError('ネットワークエラーが発生しました');
+    } finally {
       setLoading(false);
     }
   };

@@ -1,10 +1,13 @@
+// middleware.ts
+
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// 認証不要なパス（誰でもアクセス可能）
+// 認証不要なパス
 const publicPaths = [
   '/login',
   '/signup',
+  '/api/auth', // 認証APIは除外
 ];
 
 export async function middleware(request: NextRequest) {
@@ -15,35 +18,22 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith(path)
   );
   
-  // Amplify認証トークンをCookieから取得
-  const cookies = request.cookies;
+  // 公開パスの場合は何もしない
+  if (isPublicPath) {
+    return NextResponse.next();
+  }
   
-  // Cognitoの実際のCookie名を探す
-  const cognitoCookies = Array.from(cookies.getAll()).filter(cookie => 
-    cookie.name.includes('CognitoIdentityServiceProvider')
-  );
+  // Cognitoトークンの存在確認
+  const idToken = request.cookies.get('cognito_id_token');
+  const accessToken = request.cookies.get('cognito_access_token');
   
-  // トークンの存在を確認
-  const hasIdToken = cognitoCookies.some(cookie => 
-    cookie.name.includes('.idToken')
-  );
-  const hasAccessToken = cognitoCookies.some(cookie => 
-    cookie.name.includes('.accessToken')
-  );
+  const isAuthenticated = !!(idToken && accessToken);
   
-  const isAuthenticated = hasIdToken && hasAccessToken;
-  
-  // 公開パス以外で未認証の場合はログインへリダイレクト
-  if (!isPublicPath && !isAuthenticated) {
+  // 未認証の場合はログインページへリダイレクト
+  if (!isAuthenticated) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('from', pathname);
     return NextResponse.redirect(loginUrl);
-  }
-  
-  // 認証済みユーザーがログインページにアクセスした場合はホームへ
-  if (isPublicPath && isAuthenticated) {
-    const redirectTo = request.nextUrl.searchParams.get('from') || '/';
-    return NextResponse.redirect(new URL(redirectTo, request.url));
   }
   
   return NextResponse.next();
@@ -52,6 +42,14 @@ export async function middleware(request: NextRequest) {
 // ミドルウェアを適用するパスの設定
 export const config = {
   matcher: [
+    /*
+     * 以下を除くすべてのパスにマッチ:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - 拡張子付きファイル (例: .css, .js, .png)
+     */
     '/((?!api|_next/static|_next/image|favicon.ico|.*\\..*|_next).*)',
   ],
 };
