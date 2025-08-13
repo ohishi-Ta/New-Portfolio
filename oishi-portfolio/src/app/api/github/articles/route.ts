@@ -1,4 +1,4 @@
-// app/api/github/route.ts
+// app/api/github/articles/route.ts
 
 import { NextResponse } from 'next/server';
 import matter from 'gray-matter';
@@ -17,6 +17,9 @@ interface GraphQLResponse {
       object?: {
         entries?: GraphQLEntry[];
       };
+      tagMappingFile?: {
+        text?: string;
+      };
     };
   };
   errors?: Array<{ message: string }>;
@@ -32,8 +35,33 @@ interface ArticleData {
   published_at: string;
 }
 
+interface TagMapping {
+  tagMapping: {
+    [key: string]: string;
+  };
+}
+
+// トピックを変換する関数
+function transformTopics(topics: string[], mapping: { [key: string]: string }): string[] {
+  return topics.map(topic => {
+    // 完全一致を優先
+    if (mapping[topic]) {
+      return mapping[topic];
+    }
+    
+    // 小文字変換での一致を確認
+    const lowerTopic = topic.toLowerCase();
+    if (mapping[lowerTopic]) {
+      return mapping[lowerTopic];
+    }
+    
+    // マッピングにない場合は元のトピックをそのまま返す
+    return topic;
+  });
+}
+
 export async function GET() {
-  const token = process.env.GITHUB_TOKEN; // NEXT_PUBLIC_なし
+  const token = process.env.GITHUB_TOKEN;
   
   if (!token) {
     return NextResponse.json(
@@ -42,6 +70,7 @@ export async function GET() {
     );
   }
 
+  // 1回のGraphQLクエリで記事とタグマッピングの両方を取得
   const query = `
     query($owner: String!, $name: String!) {
       repository(owner: $owner, name: $name) {
@@ -56,6 +85,11 @@ export async function GET() {
                 }
               }
             }
+          }
+        }
+        tagMappingFile: object(expression: "HEAD:public/tags-mapping.json") {
+          ... on Blob {
+            text
           }
         }
       }
@@ -76,7 +110,8 @@ export async function GET() {
           name: 'Zenn'
         }
       }),
-      next: { revalidate: 3600 } // 1時間キャッシュ
+      // next: { revalidate: 3600 } // 1時間キャッシュ
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -93,6 +128,22 @@ export async function GET() {
       );
     }
 
+    // タグマッピングを解析
+    let tagMapping: { [key: string]: string } = {};
+    const tagMappingContent = result.data?.repository?.tagMappingFile?.text;
+    
+    if (tagMappingContent) {
+      try {
+        const parsedMapping: TagMapping = JSON.parse(tagMappingContent);
+        tagMapping = parsedMapping.tagMapping || {};
+      } catch (error) {
+        console.warn('タグマッピングファイルの解析に失敗しました:', error);
+      }
+    } else {
+      console.warn('タグマッピングファイルが見つかりませんでした');
+    }
+
+    // 記事データを処理
     const entries = result.data?.repository?.object?.entries || [];
     
     const articles = entries
@@ -107,12 +158,18 @@ export async function GET() {
           
           const { data: frontMatter } = matter(entry.object.text);
           
+          // 元のトピックを取得
+          const originalTopics = frontMatter.topics || [];
+          
+          // タグマッピングを適用
+          const transformedTopics = transformTopics(originalTopics, tagMapping);
+          
           return {
             slug: entry.name.replace('.md', ''),
             title: frontMatter.title || 'Untitled',
             emoji: frontMatter.emoji || '📝',
             type: frontMatter.type || 'tech',
-            topics: frontMatter.topics || [],
+            topics: transformedTopics, // 変換されたトピック
             published: frontMatter.published !== false,
             published_at: frontMatter.published_at || '',
           };

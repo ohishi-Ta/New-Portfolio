@@ -168,8 +168,6 @@ const SkillSet = () => {
             <li>Adobe Photoshop</li>
             <li>Adobe Illustrator</li>
             <li>Adobe XD</li>
-            <li>Claude Code</li>
-            <li>Kiro</li>
         </ul>
       </div>
     </div>

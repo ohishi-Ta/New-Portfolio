@@ -36,8 +36,6 @@ const BlogCard = ({ article }: BlogCardProps) => {
       {/* ヘッダー部分 */}
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-100">
         <div className="flex items-start justify-between mb-3">
-          {/* 絵文字 */}
-          <span className="text-4xl">{article.emoji}</span>
           
           {/* 記事タイプバッジ */}
           <span className={`inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-full ${
@@ -50,7 +48,7 @@ const BlogCard = ({ article }: BlogCardProps) => {
         </div>
         
         {/* タイトル */}
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-3 group-hover:text-blue-600 transition-colors">
           {article.title}
         </h3>
       </div>
@@ -60,15 +58,11 @@ const BlogCard = ({ article }: BlogCardProps) => {
         {/* トピックタグ */}
         {article.topics && article.topics.length > 0 && (
           <div className="flex flex-wrap gap-1.5 mb-4">
-            <HiTag className="w-4 h-4 text-gray-400 mt-0.5" />
-            {article.topics.slice(0, 3).map((topic, index) => (
+            {article.topics.map((topic, index) => (
               <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
                 {topic}
               </span>
             ))}
-            {article.topics.length > 3 && (
-              <span className="text-xs text-gray-500">+{article.topics.length - 3}</span>
-            )}
           </div>
         )}
         
