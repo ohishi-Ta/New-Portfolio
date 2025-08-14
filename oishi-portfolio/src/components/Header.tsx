@@ -1,10 +1,47 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { signOut, fetchAuthSession } from 'aws-amplify/auth';
 
 const Header = () => {
     const pathname = usePathname();
+    const router = useRouter();
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    
+    // 認証状態をチェック
+    useEffect(() => {
+      checkAuth();
+    }, [pathname]);
+    
+    const checkAuth = async () => {
+      try {
+        const session = await fetchAuthSession();
+        if (session?.tokens) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+        }
+      } catch (error) {
+        console.log('Auth check error:', error);
+        setIsAuthenticated(false);
+      }
+    };
+    
+    // ログアウト処理
+    const handleLogout = async () => {
+      setIsLoading(true);
+      try {
+        await signOut();
+        router.push('/auth');
+      } catch (error) {
+        console.error('Logout error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
     
     // PROFILEクリック時の処理
     const handleProfileClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -22,10 +59,15 @@ const Header = () => {
       // 他のページの場合はデフォルトのLink動作でページ遷移
     };
     
+    // /authページではヘッダーを表示しない
+    if (pathname === '/auth') {
+      return null;
+    }
+    
     return(
       <header className="flex justify-end py-4 md:py-0 md:pt-6 mr-5 sticky top-0 z-[9999]">
         <nav>
-          <div className="flex space-x-2 md:space-x-6 bg-white rounded-full px-3 md:px-6 py-2 md:py-3 shadow-sm">
+          <div className="flex items-center space-x-2 md:space-x-6 bg-white rounded-full px-3 md:px-6 py-2 md:py-3 shadow-sm">
             <Link 
               href="/" 
               className={`px-2 md:px-4 py-1 md:py-2 rounded-full text-xs md:text-sm font-bold font-figtree ${
@@ -63,6 +105,17 @@ const Header = () => {
             >
               BLOG
             </Link>
+            
+            {/* ログアウトボタン（認証時のみ表示） */}
+            {isAuthenticated && (
+              <button
+                onClick={handleLogout}
+                disabled={isLoading}
+                className="px-2 md:px-4 py-1 md:py-2 text-red-600 rounded-full text-xs md:text-sm font-bold hover:bg-red-50 font-figtree disabled:opacity-50"
+              >
+                {isLoading ? 'LOGGING OUT...' : 'LOGOUT'}
+              </button>
+            )}
           </div>
         </nav>
       </header>
