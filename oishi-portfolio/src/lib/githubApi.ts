@@ -1,9 +1,12 @@
 // src/lib/githubApi.ts
 
 import { GitHubArticle } from '../types/github';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 // API Routeから記事を取得
 export async function getArticles(limit?: number): Promise<GitHubArticle[]> {
+  // セッション確認（自動リフレッシュ）
+  await fetchAuthSession();
   try {
     const response = await fetch('/api/github/articles', {
       next: { revalidate: 3600 } // 1時間キャッシュ

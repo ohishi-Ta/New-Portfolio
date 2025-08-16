@@ -1,11 +1,14 @@
 // src/lib/worksApi.ts
 
 import type { Work } from '@/types/works';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 export async function fetchWorks(): Promise<{
   contents: Work[];
   error?: string;
 }> {
+  // セッション確認（自動リフレッシュ）
+  await fetchAuthSession();
   try {
     const response = await fetch('/api/works', {
       next: { revalidate: 3600 } // 1時間キャッシュ

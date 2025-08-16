@@ -5,19 +5,12 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { signOut } from 'aws-amplify/auth';
-import { useTokenRefresh } from '@/hooks/useTokenRefresh';
 
 const Header = () => {
     const pathname = usePathname();
     const router = useRouter();
     const [isAuth, setIsAuth] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    
-    // トークンリフレッシュフックを使用（オプション）
-    useTokenRefresh();
-    
-
-
+    const [isLoading, setIsLoading] = useState(false)
     // ログアウト処理
     const handleLogout = async () => {
       setIsLoading(true);
