@@ -1,35 +1,23 @@
+// src/components/Header.tsx
 'use client';
 
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
-import { signOut, fetchAuthSession } from 'aws-amplify/auth';
+import { signOut } from 'aws-amplify/auth';
+import { useTokenRefresh } from '@/hooks/useTokenRefresh';
 
 const Header = () => {
     const pathname = usePathname();
     const router = useRouter();
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [isAuth, setIsAuth] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     
-    // 認証状態をチェック
-    useEffect(() => {
-      checkAuth();
-    }, [pathname]);
+    // トークンリフレッシュフックを使用（オプション）
+    useTokenRefresh();
     
-    const checkAuth = async () => {
-      try {
-        const session = await fetchAuthSession();
-        if (session?.tokens) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        console.log('Auth check error:', error);
-        setIsAuthenticated(false);
-      }
-    };
-    
+
+
     // ログアウト処理
     const handleLogout = async () => {
       setIsLoading(true);
@@ -109,7 +97,7 @@ const Header = () => {
             </Link>
             
             {/* ログアウトボタン（認証時のみ表示） */}
-            {isAuthenticated && (
+            {isAuth && (
               <button
                 onClick={handleLogout}
                 disabled={isLoading}

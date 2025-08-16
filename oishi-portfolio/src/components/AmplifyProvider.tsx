@@ -1,4 +1,4 @@
-// src/app/components/AmplifyProvider.tsx
+// src/components/AmplifyProvider.tsx
 'use client'
 
 import { Amplify } from 'aws-amplify'

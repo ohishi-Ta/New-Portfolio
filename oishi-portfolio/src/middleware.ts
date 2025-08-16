@@ -1,65 +1,76 @@
 // src/middleware.ts
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
+
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
 // 認証不要なパス
-const publicPaths = ['/login', '/signup', '/api/config']
+const publicPaths = ['/login', '/signup', '/api/config'];
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-
-  // 環境変数が設定されているかチェック
+export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  
+  // 環境変数チェック
   const isConfigured = process.env.USER_POOL_ID && 
                        process.env.CLIENT_ID && 
-                       process.env.AWS_REGION
+                       process.env.AWS_REGION;
 
-  if (!isConfigured && !pathname.startsWith('/api/')) {
-    console.error('AWS Cognito環境変数が設定されていません')
+  if (!isConfigured) {
+    console.error('AWS Cognito環境変数が設定されていません');
   }
 
-  // 公開パスの場合は処理をスキップ
-  const isPublicPath = publicPaths.some(path => pathname.startsWith(path))
+  // 公開パスはスキップ
+  const isPublicPath = publicPaths.some(path => pathname.startsWith(path));
   
-  // 静的ファイルやAPIルートは除外
-  const isStaticOrApi = pathname.startsWith('/_next') || 
-                        pathname.startsWith('/api/') ||
-                        pathname.includes('.')
-
-  if (isPublicPath || isStaticOrApi) {
-    const response = NextResponse.next()
-    
-    // APIエンドポイントのセキュリティヘッダー
-    if (pathname.startsWith('/api/config')) {
-      response.headers.set('Cache-Control', 'no-store, max-age=0')
-    }
-    
-    return response
+  // 静的ファイルやNext.js内部パスはスキップ
+  if (
+    pathname.startsWith('/_next') || 
+    pathname.startsWith('/api/') ||
+    pathname.includes('.') ||
+    isPublicPath
+  ) {
+    return NextResponse.next();
   }
 
-  // Cognitoのトークンをチェック
-  const idToken = request.cookies.get('CognitoIdentityServiceProvider.' + process.env.CLIENT_ID + '.LastAuthUser')
-  const accessToken = request.cookies.get('CognitoIdentityServiceProvider.' + process.env.CLIENT_ID + '.' + idToken?.value + '.idToken')
-
-  // トークンが存在しない場合はログインページへリダイレクト
-  if (!idToken || !accessToken) {
-    const loginUrl = new URL('/login', request.url)
-    // リダイレクト後に元のページに戻れるように
+  // Cognitoトークンの存在確認（簡易チェック）
+  const clientId = process.env.CLIENT_ID;
+  if (!clientId) {
+    return NextResponse.redirect(new URL('/login', request.url));
+  }
+  
+  const lastAuthUser = request.cookies.get(
+    `CognitoIdentityServiceProvider.${clientId}.LastAuthUser`
+  );
+  
+  if (!lastAuthUser) {
+    const loginUrl = new URL('/login', request.url);
     if (pathname !== '/') {
-      loginUrl.searchParams.set('from', pathname)
+      loginUrl.searchParams.set('from', pathname);
     }
-    return NextResponse.redirect(loginUrl)
+    return NextResponse.redirect(loginUrl);
+  }
+  
+  const idToken = request.cookies.get(
+    `CognitoIdentityServiceProvider.${clientId}.${lastAuthUser.value}.idToken`
+  );
+  
+  if (!idToken) {
+    const loginUrl = new URL('/login', request.url);
+    if (pathname !== '/') {
+      loginUrl.searchParams.set('from', pathname);
+    }
+    return NextResponse.redirect(loginUrl);
   }
 
-  // 認証済みユーザーがログイン/サインアップページにアクセスした場合はホームへリダイレクト
+  // 認証済みユーザーがログイン/サインアップページにアクセスした場合
   if (pathname === '/login' || pathname === '/signup') {
-    return NextResponse.redirect(new URL('/', request.url))
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
   matcher: [
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
-}
+};
