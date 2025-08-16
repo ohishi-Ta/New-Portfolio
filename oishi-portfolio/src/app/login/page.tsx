@@ -26,108 +26,121 @@ export default function LoginPage() {
       const { isSignedIn } = await signIn({ username, password })
       
       if (isSignedIn) {
-        // Amplifyは内部でトークンを管理するので、手動での保存は不要
-        // ただし、既存のコードとの互換性のためusernameは保存
         localStorage.setItem('username', username)
-        
-        // 元のページまたはTOPページへリダイレクト
         router.push(from)
-        // ページをリロードしてmiddlewareに認証状態を反映
         router.refresh()
       }
     } catch (err: any) {
-      setError(err.message || 'ログインに失敗しました')
+      if (err.name === 'UserNotFoundException') {
+        setError('ユーザーが見つかりません')
+      } else if (err.name === 'NotAuthorizedException') {
+        setError('ユーザー名またはパスワードが正しくありません')
+      } else if (err.name === 'UserNotConfirmedException') {
+        setError('メールアドレスの確認が完了していません')
+      } else {
+        setError(err.message || 'ログインに失敗しました')
+      }
       setLoading(false)
     }
   }
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '400px', margin: '100px auto' }}>
-      <h1 style={{ marginBottom: '30px' }}>ログイン</h1>
-      
-      <form onSubmit={handleLogin}>
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>
-            ユーザー名
-          </label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            disabled={loading}
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              fontSize: '16px'
-            }}
-          />
-        </div>
-        
-        <div style={{ marginBottom: '20px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>
-            パスワード
-          </label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={loading}
-            style={{
-              width: '100%',
-              padding: '12px',
-              border: '1px solid #ddd',
-              borderRadius: '4px',
-              fontSize: '16px'
-            }}
-          />
-        </div>
-
-        {error && (
-          <div style={{ 
-            color: '#dc3545', 
-            marginBottom: '20px',
-            padding: '10px',
-            backgroundColor: '#f8d7da',
-            borderRadius: '4px',
-            fontSize: '14px'
-          }}>
-            {error}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className="w-full max-w-md mx-4">
+        <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
+          {/* ロゴ・タイトル */}
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900 font-figtree">
+              PORTFOLIO SITE
+            </h1>
+            <p className="mt-2 text-sm text-gray-600">
+              アカウントにログイン
+            </p>
           </div>
-        )}
 
-        <button 
-          type="submit"
-          disabled={loading}
-          style={{
-            width: '100%',
-            padding: '12px',
-            backgroundColor: loading ? '#6c757d' : '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: loading ? 'not-allowed' : 'pointer',
-            fontSize: '16px'
-          }}
-        >
-          {loading ? 'ログイン中...' : 'ログイン'}
-        </button>
-      </form>
+          {/* エラーメッセージ */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              {error}
+            </div>
+          )}
 
-      <div style={{ textAlign: 'center', marginTop: '20px' }}>
-        <Link 
-          href="/signup"
-          style={{ 
-            color: '#28a745', 
-            textDecoration: 'none',
-            fontSize: '14px'
-          }}
-        >
-          新規アカウントを作成
-        </Link>
+          {/* ログインフォーム */}
+          <form onSubmit={handleLogin} className="space-y-5">
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                ユーザー名
+              </label>
+              <input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                placeholder="ユーザー名を入力"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                パスワード
+              </label>
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                placeholder="パスワードを入力"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-blue-700"
+            >
+              {loading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  ログイン中...
+                </span>
+              ) : (
+                'ログイン'
+              )}
+            </button>
+          </form>
+
+          {/* 区切り線 */}
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">または</span>
+            </div>
+          </div>
+
+          {/* サインアップリンク */}
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              アカウントをお持ちでない方は
+              <Link 
+                href="/signup"
+                className="ml-1 font-medium text-blue-600 hover:text-blue-500 transition-colors"
+              >
+                新規登録
+              </Link>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -35,7 +35,9 @@ const Header = () => {
       setIsLoading(true);
       try {
         await signOut();
-        router.push('/auth');
+        localStorage.removeItem('username');
+        router.push('/login');
+        router.refresh();
       } catch (error) {
         console.error('Logout error:', error);
       } finally {
@@ -59,8 +61,8 @@ const Header = () => {
       // 他のページの場合はデフォルトのLink動作でページ遷移
     };
     
-    // /authページではヘッダーを表示しない
-    if (pathname === '/auth') {
+    // /login, /signupページではヘッダーを表示しない
+    if (pathname === '/login' || pathname === '/signup') {
       return null;
     }
     
@@ -111,7 +113,7 @@ const Header = () => {
               <button
                 onClick={handleLogout}
                 disabled={isLoading}
-                className="px-2 md:px-4 py-1 md:py-2 text-red-600 rounded-full text-xs md:text-sm font-bold hover:bg-red-50 font-figtree disabled:opacity-50"
+                className="px-2 md:px-4 py-1 md:py-2 text-red-600 rounded-full text-xs md:text-sm font-bold hover:bg-red-50 font-figtree disabled:opacity-50 transition-colors"
               >
                 {isLoading ? 'LOGGING OUT...' : 'LOGOUT'}
               </button>
