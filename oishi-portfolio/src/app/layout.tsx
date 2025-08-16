@@ -1,11 +1,11 @@
+// src/app/layout.tsx
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Figtree } from 'next/font/google'
 import "./globals.scss";
 import "../styles/home.scss";
 import "../styles/works.scss";
 import Header from '../components/Header';
-import AuthGuard from '../components/AuthGuard';
-import AppProvider from '../components/AppProvider';
+import AmplifyProvider from '../components/AmplifyProvider';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],
@@ -43,12 +43,10 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
       <body className="has-[.micromodal-slide.is-open]:overflow-hidden overflow-x-hidden">
-        <AppProvider>
-          <AuthGuard>
-            <Header />
-            {children}
-          </AuthGuard>
-        </AppProvider>
+        <AmplifyProvider>
+          <Header />
+          {children}
+        </AmplifyProvider>
       </body>
     </html>
   );

@@ -70,11 +70,12 @@ export async function GET() {
     );
   }
 
-  // 1回のGraphQLクエリで記事とタグマッピングの両方を取得
+  // 1回のGraphQLクエリで異なるブランチから記事とタグマッピングを取得
   const query = `
     query($owner: String!, $name: String!) {
       repository(owner: $owner, name: $name) {
-        object(expression: "HEAD:articles") {
+        # mainブランチから記事を取得
+        object(expression: "main:articles") {
           ... on Tree {
             entries {
               name
@@ -87,7 +88,8 @@ export async function GET() {
             }
           }
         }
-        tagMappingFile: object(expression: "HEAD:public/tags-mapping.json") {
+        # main-actionsブランチからタグマッピングを取得
+        tagMappingFile: object(expression: "main-actions:public/tags-mapping.json") {
           ... on Blob {
             text
           }
@@ -136,11 +138,12 @@ export async function GET() {
       try {
         const parsedMapping: TagMapping = JSON.parse(tagMappingContent);
         tagMapping = parsedMapping.tagMapping || {};
+        console.log('タグマッピング取得成功 (main-actionsブランチ):', Object.keys(tagMapping).length, '件');
       } catch (error) {
         console.warn('タグマッピングファイルの解析に失敗しました:', error);
       }
     } else {
-      console.warn('タグマッピングファイルが見つかりませんでした');
+      console.warn('タグマッピングファイルが見つかりませんでした (main-actionsブランチ)');
     }
 
     // 記事データを処理
@@ -184,6 +187,8 @@ export async function GET() {
       .sort((a: ArticleData, b: ArticleData) =>
         new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
       );
+
+    console.log(`記事取得成功 (mainブランチ): ${articles.length}件`);
 
     return NextResponse.json(articles);
   } catch (error) {
