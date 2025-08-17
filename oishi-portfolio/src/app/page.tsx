@@ -114,6 +114,7 @@ const Portfolio = () => {
             <li>AWS Certified AI Practitioner 2025年</li>
             <li>AWS Certified Machine Learning Engineer - Associate 2025年</li>
             <li>AWS Certified Machine Learning - Specialty 2025年</li>
+            <li>Google Cloud Cloud Digital Leader 2025年</li>
           </ul>
         </div>
 

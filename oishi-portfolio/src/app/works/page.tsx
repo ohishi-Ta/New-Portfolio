@@ -136,7 +136,7 @@ function WorksContent() {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
+            <h1 className="text-5xl font-extrabold md:px-6 font-figtree">WORKS</h1>
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
@@ -157,7 +157,7 @@ function WorksContent() {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
+            <h1 className="text-5xl font-extrabold md:px-6 font-figtree">WORKS</h1>
           </div>
         </div>
         <div className="max-w-[1350px] mx-auto px-6 py-15">
@@ -175,17 +175,17 @@ function WorksContent() {
       <div className="mt-6">
         <div className="bg-white px-6 py-18">
           <div className="max-w-[1350px] mx-auto">
-            <h1 className="text-5xl font-extrabold px-6 font-figtree">WORKS</h1>
+            <h1 className="text-5xl font-extrabold md:px-6 font-figtree">WORKS</h1>
             
             {/* カテゴリフィルター */}
             {categories.length > 1 && (
-              <div className="px-6 mt-10">
+              <div className="md:px-6 mt-10">
                 <div className="flex flex-wrap gap-2">
                   {categories.map((category) => (
                     <button
                       key={category}
                       onClick={() => handleCategoryChange(category)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                      className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                         activeCategory === category
                           ? 'bg-blue-500 text-white'
                           : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
