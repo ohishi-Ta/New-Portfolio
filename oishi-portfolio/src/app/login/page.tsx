@@ -30,15 +30,16 @@ export default function LoginPage() {
         router.push(from)
         router.refresh()
       }
-    } catch (err: any) {
-      if (err.name === 'UserNotFoundException') {
+    } catch (err) {
+      const error = err as Error;
+      if (error.message === 'UserNotFoundException') {
         setError('ユーザーが見つかりません')
-      } else if (err.name === 'NotAuthorizedException') {
+      } else if (error.message === 'NotAuthorizedException') {
         setError('ユーザー名またはパスワードが正しくありません')
-      } else if (err.name === 'UserNotConfirmedException') {
+      } else if (error.message === 'UserNotConfirmedException') {
         setError('メールアドレスの確認が完了していません')
       } else {
-        setError(err.message || 'ログインに失敗しました')
+        setError(error.message || 'ログインに失敗しました')
       }
       setLoading(false)
     }

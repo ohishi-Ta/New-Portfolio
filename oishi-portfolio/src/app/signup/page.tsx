@@ -47,8 +47,9 @@ export default function SignupPage() {
       setIsVerifying(true)
       setError('')
       setLoading(false)
-    } catch (err: any) {
-      setError(err.message || 'サインアップに失敗しました')
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || 'サインアップに失敗しました')
       setLoading(false)
     }
   }
@@ -66,8 +67,9 @@ export default function SignupPage() {
       
       alert('アカウントが作成されました！ログインページに移動します。')
       router.push('/login')
-    } catch (err: any) {
-      setError(err.message || '確認コードが正しくありません')
+    } catch (err) {
+      const error = err as Error;
+      setError(error.message || '確認コードが正しくありません')
       setLoading(false)
     }
   }

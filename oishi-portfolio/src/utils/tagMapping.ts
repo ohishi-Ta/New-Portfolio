@@ -2,13 +2,6 @@
 
 import type { GitHubArticle } from '@/types/github';
 
-// タグマッピングの型定義
-interface TagMapping {
-  tagMapping: {
-    [key: string]: string;
-  };
-}
-
 // タグマッピングデータをキャッシュする変数（nullを許可しない）
 let tagMappingCache: { [key: string]: string } = {};
 let isCacheLoaded = false;

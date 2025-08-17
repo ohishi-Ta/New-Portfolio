@@ -2,7 +2,7 @@
 
 'use client';
 
-import { HiExternalLink, HiClock, HiTag } from 'react-icons/hi';
+import { HiExternalLink, HiClock } from 'react-icons/hi';
 import type { GitHubArticle } from '@/types/github';
 
 type BlogCardProps = {
