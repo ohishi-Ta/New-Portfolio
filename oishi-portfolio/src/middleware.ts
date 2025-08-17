@@ -11,8 +11,7 @@ export async function middleware(request: NextRequest) {
   
   // 環境変数チェック
   const isConfigured = process.env.USER_POOL_ID && 
-                       process.env.CLIENT_ID && 
-                       process.env.AWS_REGION;
+                       process.env.CLIENT_ID;
 
   if (!isConfigured) {
     console.error('AWS Cognito環境変数が設定されていません');

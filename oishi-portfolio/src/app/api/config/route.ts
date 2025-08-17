@@ -8,7 +8,6 @@ export async function GET() {
       Cognito: {
         userPoolId: process.env.USER_POOL_ID!,
         userPoolClientId: process.env.CLIENT_ID!,
-        region: process.env.AWS_REGION!,
         signUpVerificationMethod: 'code' as const,
         loginWith: {
           username: true,
