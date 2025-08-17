@@ -5,29 +5,60 @@ import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { signOut, fetchAuthSession } from 'aws-amplify/auth';
+import { Hub } from 'aws-amplify/utils';
 
 const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [isAuth, setIsAuth] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
-  // 認証状態チェック
+  // 認証状態チェック関数
+  const checkAuth = async () => {
+    try {
+      const session = await fetchAuthSession();
+      setIsAuth(!!session.tokens);
+    } catch {
+      setIsAuth(false);
+    }
+  };
+
+  // 初回マウント時と認証イベント時に認証状態をチェック
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const session = await fetchAuthSession();
-        setIsAuth(!!session.tokens); // トークンがあれば認証済み
-      } catch {
-        setIsAuth(false);
-      }
-    };
+    // 初回チェック
     checkAuth();
+
+    // Amplify Hub を使用して認証イベントをリッスン
+    const hubListener = Hub.listen('auth', (data) => {
+      switch (data.payload.event) {
+        case 'signedIn':
+          console.log('User signed in');
+          checkAuth();
+          break;
+        case 'signedOut':
+          console.log('User signed out');
+          setIsAuth(false);
+          break;
+        case 'tokenRefresh':
+          console.log('Token refreshed');
+          checkAuth();
+          break;
+        case 'tokenRefresh_failure':
+          console.log('Token refresh failed');
+          setIsAuth(false);
+          break;
+        default:
+          break;
+      }
+    });
+
+    // クリーンアップ
+    return () => {
+      hubListener();
+    };
   }, []);
 
   // ログアウト処理
   const handleLogout = async () => {
-    setIsLoading(true);
     try {
       await signOut();
       localStorage.removeItem('username');
@@ -36,8 +67,6 @@ const Header = () => {
       router.refresh();
     } catch (error) {
       console.error('Logout error:', error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -106,10 +135,9 @@ const Header = () => {
           {isAuth && (
             <button
               onClick={handleLogout}
-              disabled={isLoading}
-              className="px-2 md:px-4 py-1 md:py-2 text-red-600 rounded-full text-xs md:text-sm font-bold hover:bg-red-50 font-figtree disabled:opacity-50 transition-colors"
+              className="px-2 md:px-4 py-1 md:py-2 text-red-600 rounded-full text-xs md:text-sm font-bold hover:bg-red-50 font-figtree transition-colors cursor-pointer"
             >
-              {isLoading ? 'LOGGING OUT...' : 'LOGOUT'}
+              LOGOUT
             </button>
           )}
         </div>
