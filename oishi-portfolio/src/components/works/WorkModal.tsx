@@ -6,7 +6,6 @@ import { HiX, HiExternalLink, HiCode } from 'react-icons/hi';
 import { BiCategory } from 'react-icons/bi';
 import ImageSlider from './ImageSlider';
 import type { Work } from '@/types/works';
-import { getImageArray } from '@/utils/works';
 
 type WorkModalProps = {
   selectedWork: Work | null;
@@ -15,7 +14,8 @@ type WorkModalProps = {
 const WorkModal = ({ selectedWork }: WorkModalProps) => {
   if (!selectedWork) return null;
 
-  const images = getImageArray(selectedWork);
+  // サムネイルを除外して詳細画像のみ取得
+  const images = selectedWork.images || [];
 
   return (
     <>
@@ -40,7 +40,7 @@ const WorkModal = ({ selectedWork }: WorkModalProps) => {
       {/* Enhanced Content */}
       <main className="modal__content overflow-y-auto max-h-[calc(95vh-200px)]">
         <div className="p-8">
-          {/* Image Slider */}
+          {/* Image Slider - 詳細画像のみ表示 */}
           {images.length > 0 && (
             <div className="mb-8">
               <ImageSlider images={images} title={selectedWork.title} />

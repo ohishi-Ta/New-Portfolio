@@ -184,7 +184,7 @@ function BlogContent() {
                       onClick={() => handleTopicChange(ranking.name)}
                       className={`
                         flex items-center justify-between p-3 rounded-lg border-2 
-                        transition-all duration-200 -pointercursor
+                        transition-all duration-200 -pointercursor cursor-pointer
                         ${activeTopic === ranking.name ? 'bg-gray-200' : ''}
                       `}
                     >
