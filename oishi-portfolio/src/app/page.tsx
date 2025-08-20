@@ -4,6 +4,7 @@ import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
 import WorksPreview from '../components/WorksPreview';
 import BlogPreview from '../components/BlogPreview';
+import AvatarIframe from '../components/AvatarIframe';
 
 const Portfolio = () => {
   return ( 
@@ -59,7 +60,7 @@ const Portfolio = () => {
                 <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
                 <div className="mt-10 md:max-w-xl lg:max-w-2xl">
                   <Image 
-                      src="/aws-badge.png" 
+                      src="/badge.png" 
                       alt="AWS 認定バッジ"
                       width={600}
                       height={200}
@@ -67,15 +68,7 @@ const Portfolio = () => {
                     />
                   </div>
                 </div>
-              <iframe 
-                src="https://ai-tuber-kit.vercel.app/"
-                loading="lazy"
-                sandbox="allow-scripts allow-same-origin"
-                width={900}
-                height={600}
-                className='hidden lg:block'
-                >
-              </iframe>
+                <AvatarIframe />
             </div>
             <Slider />
           </div>
