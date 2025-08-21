@@ -14,51 +14,28 @@ const Portfolio = () => {
       {/* Main Visual */}
       <div className="">
         <div className='home--mv'>
-          {/* <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
-            <Image 
-              src="/mv-pink.svg" 
-              alt=""
-              width={600}
-              height={600}
-              priority
-            />
-          </div>
-          <div className="home--mv-image-right-2 home--mv-image home--mv-image-speed-2">
-            <Image 
-              src="/mv-orange.svg" 
-              alt=""
-              width={600}
-              height={600}
-              priority
-            />
-          </div>
-          <div className="home--mv-image-left-1 home--mv-image home--mv-image-speed-1">
-            <Image 
-              src="/mv-blue.svg" 
-              alt=""
-              width={600}
-              height={600}
-              priority
-            />
-          </div>
-          <div className="home--mv-image-left-2 home--mv-image home--mv-image-speed-2">
-           <Image 
-              src="/mv-yellow.svg" 
-              alt=""
-              width={600}
-              height={600}
-              priority
-            />
-          </div> */}
-          
           <div className="home--bg-image-bar1 home--bg-image">
-           <Image 
-              src="/mv-bar1.svg" 
-              alt=""
-              width={1200}
-              height={500}
-              priority
-            />
+            
+    <svg className='active'  width="100%" height="668" viewBox="0 0 2370 668" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <mask id="mask0_111_213" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="2370" height="668">
+        <rect x="0.480225" y="0.818848" width="2369.05" height="666.296" fill="#D9D9D9" className="svg-elem-1"></rect>
+      </mask>
+      <g mask="url(#mask0_111_213)">
+        <path d="M-15.4343 116.36C287.95 -14.15 437.236 212.951 599.402 409.324C761.568 605.696 1202.49 628.069 1505.88 497.559C1809.26 367.048 2146.93 216.928 2309.1 413.301C2471.26 609.674 2585.18 767.196 2888.57 636.686" stroke="url(#paint0_linear_111_213)" strokeWidth="90" className="svg-elem-2"></path>
+      </g>
+      <defs>
+        <linearGradient id="paint0_linear_111_213" x1="-18.5598" y1="138.454" x2="2900.63" y2="551.436" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#155AA8"></stop>
+          <stop offset="0.15" stopColor="#155AA8"></stop>
+          <stop offset="0.15" stopColor="#85B9F3"></stop>
+          <stop offset="0.4" stopColor="#85B9F3"></stop>
+          <stop offset="0.4" stopColor="#155AA8"></stop>
+          <stop offset="0.6" stopColor="#155AA8"></stop>
+          <stop offset="0.6" stopColor="#85B9F3"></stop>
+          <stop offset="0.8" stopColor="#85B9F3"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
           </div> 
 
           <div className='home--mv-contents'>
@@ -90,87 +67,31 @@ const Portfolio = () => {
 
       <div id="profile" className='my-16 md:my-24 relative'>
       <div id="scroll-bg-hook">
-      <div className="home--bar-svg">
-        <svg id="scroll-bar-hook" width="100%" height="881" viewBox="0 0 2323 881" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <mask 
-    id="mask0_108_261" 
-    style={{maskType:"alpha"}} 
-    maskUnits="userSpaceOnUse" 
-    x="0" 
-    y="0" 
-    width="2323" 
-    height="881"
-  >
-    <rect 
-      x="0.418213" 
-      y="0.787598" 
-      width="2321.65" 
-      height="879.992" 
-      fill="#D9D9D9" 
-      className="svg-elem-1"
-    />
-  </mask>
-  <g mask="url(#mask0_108_261)">
-    <mask 
-      id="mask1_108_261" 
-      style={{maskType:"alpha"}} 
-      maskUnits="userSpaceOnUse" 
-      x="-226" 
-      y="-632" 
-      width="2594" 
-      height="1667"
-    >
-      <rect 
-        x="-225.785" 
-        y="199.755" 
-        width="2436.15" 
-        height="887.999" 
-        transform="rotate(-19.95 -225.785 199.755)" 
-        fill="#D9D9D9" 
-        className="svg-elem-2"
-      />
-    </mask>
-    <g mask="url(#mask1_108_261)">
-      <path 
-        d="M26.5644 857.063C1575.88 -634.574 -1126.43 318.122 835.803 498.123C2968.67 604.471 2755.04 -1371.6 2357.17 -621.483" 
-        stroke="#155AA8" 
-        strokeWidth="55" 
-        className="svg-elem-3"
-      />
-    </g>
-    <mask 
-      id="mask2_108_261" 
-      style={{maskType:"alpha"}} 
-      maskUnits="userSpaceOnUse" 
-      x="-226" 
-      y="-632" 
-      width="2594" 
-      height="1667"
-    >
-      <rect 
-        x="-225.785" 
-        y="199.755" 
-        width="2436.15" 
-        height="887.999" 
-        transform="rotate(-19.95 -225.785 199.755)" 
-        fill="#D9D9D9" 
-        className="svg-elem-4"
-      />
-    </mask>
-    <g mask="url(#mask2_108_261)">
-      <path 
-        d="M26.5644 857.063C1575.88 -634.574 -1126.43 318.122 835.803 498.123C2968.67 604.471 2755.04 -1371.6 2357.17 -621.483" 
-        stroke="#155AA8" 
-        strokeWidth="55" 
-        className="svg-elem-5"
-      />
-    </g>
-  </g>
-</svg>
+      <div className="home--bar-svg-1">
+        <svg id="scroll-bar-hook" width="100%" height="918" viewBox="0 0 2277 918" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <mask id="mask0_111_209" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="2277" height="918">
+        <rect x="0.480225" y="0.769531" width="2276.11" height="917.133" fill="#D9D9D9" className="svg-elem-1"></rect>
+      </mask>
+      <g mask="url(#mask0_111_209)">
+        <path d="M-38.8582 867.431C2026.45 -512.937 -989.39 206.951 806.835 563.4C2854.83 706.606 2868.85 -1335.31 2470.98 -585.196" stroke="url(#paint0_linear_111_209)" strokeWidth="90" className="svg-elem-2"></path>
+      </g>
+      <defs>
+        <linearGradient id="paint0_linear_111_209" x1="46.3978" y1="634.459" x2="2811.91" y2="-369.42" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#155AA8"></stop>
+          <stop offset="0.13" stopColor="#155AA8"></stop>
+          <stop offset="0.13" stopColor="#85B9F3"></stop>
+          <stop offset="0.3" stopColor="#85B9F3"></stop>
+          <stop offset="0.3" stopColor="#155AA8"></stop>
+          <stop offset="0.75" stopColor="#155AA8"></stop>
+          <stop offset="0.75" stopColor="#85B9F3"></stop>
+          <stop offset="1" stopColor="#85B9F3"></stop>
+        </linearGradient>
+      </defs>
+    </svg>
       </div>
 
       {/* Profile Section */}
-      <section className="max-w-[100vw] md:max-w-[1280] mx-auto py-8 md:py-20">
+      <section className="max-w-[100vw] md:max-w-[1600] mx-auto py-8 md:py-20 px-10 md:px-20 bg-white/80 backdrop-blur-sm rounded-2xl">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
         
         <div className="mb-8">
@@ -209,13 +130,15 @@ const Portfolio = () => {
 
 
       {/* Works Section */}
-      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
+      
+      <section className="max-w-[100vw] md:max-w-[1600] mx-auto my-16 md:my-24 py-8 md:py-20 px-10 md:px-20">
+
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">WORKS</h2>
         <WorksPreview />
       </section>
 
       {/* Blog Section */}
-      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
+      <section className="max-w-[100vw] md:max-w-[1600] mx-auto px-10 md:px-20">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">BLOG</h2>
         <BlogPreview />
       </section>
