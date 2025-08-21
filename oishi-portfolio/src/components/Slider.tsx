@@ -171,7 +171,7 @@ const Slider: React.FC<SliderProps> = ({ showCategory = true }) => {
                     
                     {/* カテゴリバッジ（記事タイプ） */}
                     {showCategory && (
-                      <div className="absolute top-2 right-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-figtree z-10">
+                      <div className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full font-figtree z-10">
                         {article.type === 'tech' ? 'Tech' : 'Idea'}
                       </div>
                     )}
@@ -238,7 +238,7 @@ const Slider: React.FC<SliderProps> = ({ showCategory = true }) => {
             href="/blog" 
             className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 hover:underline font-medium mr-3"
           >
-            詳しくはこちら →
+            もっと見る →
           </Link>
         </div>
       </div>

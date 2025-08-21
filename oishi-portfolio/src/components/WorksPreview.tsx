@@ -82,10 +82,10 @@ const WorksPreview = () => {
           <Link 
             key={work.id}
             href="/works"
-            className="group bg-white rounded-lg shadow-md overflow-hidden border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer block"
+            className="group bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer block"
           >
             {/* 画像 */}
-            <div className="relative w-full h-48 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
+            <div className="relative w-full h-54 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
               {work.image?.url ? (
                 <Image 
                     src={work.image.url} 
@@ -101,19 +101,11 @@ const WorksPreview = () => {
                   </svg>
                 </div>
               )}
-              
-              {/* カテゴリバッジ */}
-              {work.category && work.category.length > 0 && (
-                <div className="absolute top-2 right-2">
-                  <span className="inline-flex items-center px-2 py-1 bg-blue-500/90 backdrop-blur-sm text-white text-xs rounded-full">
-                    {work.category[0].title}
-                  </span>
-                </div>
-              )}
+
             </div>
             
             <div className="p-5">
-              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-accent transition-colors">
                 {work.title}
               </h3>
               
@@ -134,9 +126,9 @@ const WorksPreview = () => {
       <div className="text-center">
         <Link 
           href="/works"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg group"
+          className="inline-flex items-center px-12 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary transition-all duration-300 group"
         >
-          詳しくはこちら
+          もっと見る
           <HiArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>

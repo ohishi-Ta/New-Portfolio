@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import { Noto_Sans_JP, Figtree } from 'next/font/google'
-import "./globals.scss";
+import "./globals.css";
 import "../styles/home.scss";
 import "../styles/works.scss";
 import Header from '../components/Header';

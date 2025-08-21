@@ -89,15 +89,15 @@ const BlogPreview = () => {
   return (
     <>
       {/* 記事グリッド */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
         {articles.map((article) => (
           <a
             key={article.slug}
             href="/blog"
-            className="group bg-white rounded-lg shadow-md overflow-hidden border hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer block"
+            className="group bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer block"
           >
             {/* ヘッダー部分 */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-100">
+            <div className="bg-secondary p-6 border-b border-gray-100">
               {/* タイトル */}
               <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-3 group-hover:text-blue-600 transition-colors">
                 {article.title}
@@ -133,9 +133,9 @@ const BlogPreview = () => {
       <div className="text-center">
         <Link 
           href="/blog"
-          className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg group"
+          className="inline-flex items-center px-12 py-3 bg-primary text-white rounded-lg font-medium hover:bg-primary transition-all duration-300 group"
         >
-          詳しくはこちら
+          もっと見る
           <HiArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
