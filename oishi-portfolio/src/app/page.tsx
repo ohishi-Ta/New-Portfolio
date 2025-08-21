@@ -16,7 +16,7 @@ const Portfolio = () => {
         <div className='home--mv'>
           <div className="home--bg-image-bar1 home--bg-image">
             
-    <svg className='active'  width="100%" height="668" viewBox="0 0 2370 668" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg className='active w-full h-auto'  width="100%" height="668" viewBox="0 0 2370 668" fill="none" xmlns="http://www.w3.org/2000/svg">
       <mask id="mask0_111_213" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="2370" height="668">
         <rect x="0.480225" y="0.818848" width="2369.05" height="666.296" fill="#D9D9D9" className="svg-elem-1"></rect>
       </mask>
@@ -68,7 +68,7 @@ const Portfolio = () => {
       <div id="profile" className='my-16 md:my-24 relative'>
       <div id="scroll-bg-hook">
       <div className="home--bar-svg-1">
-        <svg id="scroll-bar-hook" width="100%" height="918" viewBox="0 0 2277 918" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg id="scroll-bar-hook" width="100%" height="918" viewBox="0 0 2277 918" fill="none" xmlns="http://www.w3.org/2000/svg" className='w-full h-auto'>
       <mask id="mask0_111_209" style={{maskType:"alpha"}} maskUnits="userSpaceOnUse" x="0" y="0" width="2277" height="918">
         <rect x="0.480225" y="0.769531" width="2276.11" height="917.133" fill="#D9D9D9" className="svg-elem-1"></rect>
       </mask>
