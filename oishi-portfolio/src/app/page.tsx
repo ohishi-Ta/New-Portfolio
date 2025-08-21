@@ -12,7 +12,7 @@ const Portfolio = () => {
 
       {/* Main Visual */}
       <div className="">
-        <div className='home--mv w-[90vw] mx-auto'>
+        <div className='home--mv'>
           {/* <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
             <Image 
               src="/mv-pink.svg" 
@@ -50,9 +50,9 @@ const Portfolio = () => {
             />
           </div> */}
           
-          <div className="home--mv-image-bar home--mv-image home--mv-image-speed-2">
+          <div className="home--mv-image-bar1 home--mv-image home--mv-image-speed-2">
            <Image 
-              src="/mv-bar.svg" 
+              src="/mv-bar1.svg" 
               alt=""
               width={1200}
               height={500}
@@ -63,11 +63,11 @@ const Portfolio = () => {
           <div className='home--mv-contents'>
             <div className='flex justify-between'>
               <div className=''>
-                <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">
+                <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
                   TAKATO OISHI<br />
                   PORTFOLIO SITE
                 </h1>
-                <p className="text-lg md:text-xl text-gray-600">Frontend / AWS Engineer</p>
+                <p className="text-lg md:text-xl text-white">Frontend / AWS Engineer</p>
                 <div className="mt-10 md:max-w-xl lg:max-w-2xl">
                   <Image 
                       src="/badge.png" 
@@ -87,9 +87,10 @@ const Portfolio = () => {
 
       </div>
 
-      <div id="profile" className='max-w-[100vw] md:max-w-[1200] mx-auto'>
+      <div id="profile" className='my-16 md:my-24'>
+      <div id="scroll-bg-hook">
       {/* Profile Section */}
-      <section className="mx-4 md:mx-6 my-16 md:my-24 p-8 md:p-20 bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-xl">
+      <section className="max-w-[100vw] md:max-w-[1280] mx-auto py-8 md:py-20">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
         
         <div className="mb-8">
@@ -124,6 +125,7 @@ const Portfolio = () => {
         <CareerTimeline />
 
       </section>
+      </div>
 
 
       {/* Works Section */}

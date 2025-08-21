@@ -16,9 +16,33 @@
 
 .home--mv{
   position: relative;
+  padding: 0 80px;
   img{
     width: 100%;
     height: auto;
+  }
+  &-contents{
+    &::before{
+      content: "";
+      width: 600px;
+      height: 600px;
+      background: #155AA8;
+      border-radius: 100%;
+      position: absolute;
+      top: -200px;
+      left: 20px;
+      z-index: -2;
+    }
+  }
+}
+
+/* 左から徐々に見えるマスクアニメーション */
+@keyframes revealFromLeft {
+  0% {
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
   }
 }
 
@@ -26,36 +50,38 @@
     position: absolute;
     transform-origin: center center;
     z-index: -1;
-  &-speed-1{
-    animation: scaleMvAnime 0.3s ease-out;
-  }
-  &-speed-2{
-    animation: scaleMvAnime 0.4s ease-out;
-  }
-  &-right-1{
-    right: -20vw;
-    top: -20vw;
-    width: 60vw;
-  }
-  &-right-2{
-    right: -30vw;
-    top: 5vw;
-    width: 60vw;
-  }
-  &-left-1{
-    left: -20vw;
-    top: 25vw;
-    width: 60vw;
-  }
-  &-left-2{
-    left: -13vw;
-    top: 37vw;
-    width: 60vw;
-  }
+  // &-speed-1{
+  //   animation: scaleMvAnime 0.3s ease-out;
+  // }
+  // &-speed-2{
+  //   animation: scaleMvAnime 0.4s ease-out;
+  // }
+  // &-right-1{
+  //   right: -20vw;
+  //   top: -20vw;
+  //   width: 60vw;
+  // }
+  // &-right-2{
+  //   right: -30vw;
+  //   top: 5vw;
+  //   width: 60vw;
+  // }
+  // &-left-1{
+  //   left: -20vw;
+  //   top: 25vw;
+  //   width: 60vw;
+  // }
+  // &-left-2{
+  //   left: -13vw;
+  //   top: 37vw;
+  //   width: 60vw;
+  // }
 
-  &-bar{
-    width: 100vw;
-    left: 0;
+  &-bar1{
+    width: 105vw;
+    top: 350px;
+    left: -10px;
+    animation: revealFromLeft 1.2s ease-out;
   }
 }
 
@@ -68,6 +94,10 @@
       color: #fff;
     }
   }
+}
+
+.profile-bg{
+  background: #effaff;
 }
 
 .home--career-item{
