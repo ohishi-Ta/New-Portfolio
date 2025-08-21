@@ -5,11 +5,12 @@ import CareerTimeline from '../components/CareerTimeline';
 import WorksPreview from '../components/WorksPreview';
 import BlogPreview from '../components/BlogPreview';
 import AvatarIframe from '../components/AvatarIframe';
+import ScrollBackgroundController from '../components/ScrollBackgroundController';
 
 const Portfolio = () => {
   return ( 
     <div className="home--inner">
-
+      <ScrollBackgroundController />
       {/* Main Visual */}
       <div className="">
         <div className='home--mv'>
@@ -50,7 +51,7 @@ const Portfolio = () => {
             />
           </div> */}
           
-          <div className="home--mv-image-bar1 home--mv-image home--mv-image-speed-2">
+          <div className="home--bg-image-bar1 home--bg-image">
            <Image 
               src="/mv-bar1.svg" 
               alt=""
@@ -87,8 +88,87 @@ const Portfolio = () => {
 
       </div>
 
-      <div id="profile" className='my-16 md:my-24'>
+      <div id="profile" className='my-16 md:my-24 relative'>
       <div id="scroll-bg-hook">
+      <div className="home--bar-svg">
+        <svg id="scroll-bar-hook" width="100%" height="881" viewBox="0 0 2323 881" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <mask 
+    id="mask0_108_261" 
+    style={{maskType:"alpha"}} 
+    maskUnits="userSpaceOnUse" 
+    x="0" 
+    y="0" 
+    width="2323" 
+    height="881"
+  >
+    <rect 
+      x="0.418213" 
+      y="0.787598" 
+      width="2321.65" 
+      height="879.992" 
+      fill="#D9D9D9" 
+      className="svg-elem-1"
+    />
+  </mask>
+  <g mask="url(#mask0_108_261)">
+    <mask 
+      id="mask1_108_261" 
+      style={{maskType:"alpha"}} 
+      maskUnits="userSpaceOnUse" 
+      x="-226" 
+      y="-632" 
+      width="2594" 
+      height="1667"
+    >
+      <rect 
+        x="-225.785" 
+        y="199.755" 
+        width="2436.15" 
+        height="887.999" 
+        transform="rotate(-19.95 -225.785 199.755)" 
+        fill="#D9D9D9" 
+        className="svg-elem-2"
+      />
+    </mask>
+    <g mask="url(#mask1_108_261)">
+      <path 
+        d="M26.5644 857.063C1575.88 -634.574 -1126.43 318.122 835.803 498.123C2968.67 604.471 2755.04 -1371.6 2357.17 -621.483" 
+        stroke="#155AA8" 
+        strokeWidth="55" 
+        className="svg-elem-3"
+      />
+    </g>
+    <mask 
+      id="mask2_108_261" 
+      style={{maskType:"alpha"}} 
+      maskUnits="userSpaceOnUse" 
+      x="-226" 
+      y="-632" 
+      width="2594" 
+      height="1667"
+    >
+      <rect 
+        x="-225.785" 
+        y="199.755" 
+        width="2436.15" 
+        height="887.999" 
+        transform="rotate(-19.95 -225.785 199.755)" 
+        fill="#D9D9D9" 
+        className="svg-elem-4"
+      />
+    </mask>
+    <g mask="url(#mask2_108_261)">
+      <path 
+        d="M26.5644 857.063C1575.88 -634.574 -1126.43 318.122 835.803 498.123C2968.67 604.471 2755.04 -1371.6 2357.17 -621.483" 
+        stroke="#155AA8" 
+        strokeWidth="55" 
+        className="svg-elem-5"
+      />
+    </g>
+  </g>
+</svg>
+      </div>
+
       {/* Profile Section */}
       <section className="max-w-[100vw] md:max-w-[1280] mx-auto py-8 md:py-20">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
