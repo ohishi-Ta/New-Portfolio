@@ -13,7 +13,7 @@ const Portfolio = () => {
       {/* Main Visual */}
       <div className="">
         <div className='home--mv w-[90vw] mx-auto'>
-          <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
+          {/* <div className="home--mv-image-right-1 home--mv-image home--mv-image-speed-1">
             <Image 
               src="/mv-pink.svg" 
               alt=""
@@ -48,7 +48,17 @@ const Portfolio = () => {
               height={600}
               priority
             />
-          </div>
+          </div> */}
+          
+          <div className="home--mv-image-bar home--mv-image home--mv-image-speed-2">
+           <Image 
+              src="/mv-bar.svg" 
+              alt=""
+              width={1200}
+              height={500}
+              priority
+            />
+          </div> 
 
           <div className='home--mv-contents'>
             <div className='flex justify-between'>
