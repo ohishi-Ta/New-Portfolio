@@ -2,20 +2,12 @@
 
 :root {
   --background: #f1f1f1;
-  --foreground: #171717;
 }
 
 @theme {
   --color-primary: #155aa8;
   --color-secondary: #ecf5ff;
   --color-accent: #155dfc;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

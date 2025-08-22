@@ -112,7 +112,7 @@ const SkillSet = () => {
 
   return (
     <div className="mb-8 md:mb-12" ref={sectionRef}>
-      <h3 className="text-lg md:text-3xl font-bold text-gray-900 mb-4 md:mb-6 font-figtree">
+      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6 font-figtree">
         SKILL SET
       </h3>
       

@@ -42,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable}`}>
+    <html lang="ja" className={`${notoSansJP.variable} ${figtree.variable} overflow-x-hidden`}>
       <body className="has-[.micromodal-slide.is-open]:overflow-hidden overflow-x-hidden" id="profile-bg-transition">
         <AmplifyProvider>
           <Header />

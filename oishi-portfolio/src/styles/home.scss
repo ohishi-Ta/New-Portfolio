@@ -17,6 +17,9 @@
 .home--mv{
   position: relative;
   padding: 0 80px;
+  @media (max-width: 639px) {
+    padding: 0 20px;
+  }
   img{
     width: 100%;
     height: auto;
@@ -32,6 +35,12 @@
       top: -200px;
       left: 20px;
       z-index: -2;
+      @media (max-width: 1550px) {
+        left: -100px;
+      }
+      @media (max-width: 639px) {
+         left: -10px;
+      }
     }
   }
 }

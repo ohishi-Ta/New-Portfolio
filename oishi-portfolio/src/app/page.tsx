@@ -91,8 +91,8 @@ const Portfolio = () => {
       </div>
 
       {/* Profile Section */}
-      <div className="mx-10">
-      <section className="md:max-w-[1600] mx-auto py-8 md:py-20 px-10 md:px-20 bg-white/80 backdrop-blur-sm rounded-2xl">
+      <div className="mx-5 md:mx-10">
+      <section className="md:max-w-[1600] mx-auto py-8 md:py-20 px-5 md:px-20 bg-white/80 backdrop-blur-sm rounded-2xl">
         <h2 className="text-3xl md:text-7xl font-extrabold text-gray-900 mb-8 md:mb-12 font-figtree">PROFILE</h2>
         
         <div className="mb-8">
