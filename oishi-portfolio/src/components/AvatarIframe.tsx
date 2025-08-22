@@ -29,7 +29,7 @@ export default function AvatarIframe() {
      <iframe 
        src="https://ai-tuber-kit.vercel.app/"
        loading="lazy"
-       sandbox="allow-scripts allow-same-origin"
+       sandbox="allow-scripts allow-same-origin allow-popups"
        width={900}
        height={600}
        onLoad={handleLoad}
