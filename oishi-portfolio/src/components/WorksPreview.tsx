@@ -82,7 +82,7 @@ const WorksPreview = () => {
           <Link 
             key={work.id}
             href="/works"
-            className="group bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer block"
+            className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer block"
           >
             {/* 画像 */}
             <div className="relative w-full h-54 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
@@ -105,6 +105,17 @@ const WorksPreview = () => {
             </div>
             
             <div className="p-5">
+              <div className="mb-4">
+                {/* カテゴリタグ */}
+                <div className="flex flex-wrap gap-2">
+                  {work.category && work.category.map((category, index) => (
+                    <span key={index} className="inline-flex items-center px-3 py-1 bg-white text-primary text-xs rounded-full border border-primary">
+                      {category.title}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
               <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-accent transition-colors">
                 {work.title}
               </h3>

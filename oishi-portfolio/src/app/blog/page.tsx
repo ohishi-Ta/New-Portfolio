@@ -173,7 +173,7 @@ function BlogContent() {
           {/* タグランキング TOP5 - 新規追加セクション */}
           {top5Rankings.length > 0 && (
             <div className="md:px-6 mt-10">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+              <div className="bg-secondary rounded-xl p-6">
                 <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                   タグランキング
                 </h2>
@@ -183,7 +183,7 @@ function BlogContent() {
                       key={ranking.name}
                       onClick={() => handleTopicChange(ranking.name)}
                       className={`
-                        flex items-center justify-between p-3 rounded-lg border-2 
+                        hover:bg-gray-100 flex items-center justify-between p-3 rounded-lg border-1
                         transition-all duration-200 -pointercursor cursor-pointer
                         ${activeTopic === ranking.name ? 'bg-gray-200' : ''}
                       `}
@@ -230,7 +230,7 @@ function BlogContent() {
                     onClick={() => handleTopicChange(topic)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
                       activeTopic === topic
-                        ? 'bg-blue-500 text-white'
+                        ? 'bg-accent text-white'
                         : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
                     }`}
                   >

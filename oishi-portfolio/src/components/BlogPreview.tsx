@@ -93,8 +93,9 @@ const BlogPreview = () => {
         {articles.map((article) => (
           <a
             key={article.slug}
-            href="/blog"
-            className="group bg-white rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer block"
+            href={`https://zenn.dev/ohishi-ta/articles/${article.slug}`}
+            target="_blank"
+            className="group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer block"
           >
             {/* ヘッダー部分 */}
             <div className="bg-secondary p-6 border-b border-gray-100">

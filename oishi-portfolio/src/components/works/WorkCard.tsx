@@ -14,7 +14,7 @@ type WorkCardProps = {
 const WorkCard = ({ work, onClick }: WorkCardProps) => {
   return (
     <div 
-      className="bg-white rounded-lg shadow-md overflow-hidden border cursor-pointer hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+      className="group bg-white rounded-lg shadow-md overflow-hidden border cursor-pointer hover:shadow-lg transition-all duration-300"
       onClick={() => onClick(work)}
     >
       {/* 画像 */}
@@ -24,7 +24,7 @@ const WorkCard = ({ work, onClick }: WorkCardProps) => {
             src={work.image.url} 
             alt={work.title}
             fill
-            className="object-cover object-top transition-transform duration-300 hover:scale-105"
+            className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         ) : (
@@ -39,14 +39,14 @@ const WorkCard = ({ work, onClick }: WorkCardProps) => {
           {/* カテゴリタグ */}
           <div className="flex flex-wrap gap-2">
             {work.category && work.category.map((category, index) => (
-              <span key={index} className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-600 text-xs rounded-full border border-blue-200">
+              <span key={index} className="inline-flex items-center px-3 py-1 bg-white text-primary text-xs rounded-full border border-primary">
                 {category.title}
               </span>
             ))}
           </div>
         </div>
         
-        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2">
+        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 group-hover:text-accent">
           {work.title}
         </h3>
         
@@ -59,21 +59,6 @@ const WorkCard = ({ work, onClick }: WorkCardProps) => {
           ))}
         </div>
 
-        {/* URL */}
-        {work.url && (
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <a 
-              href={work.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center text-blue-500 hover:text-blue-700 text-sm font-medium transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              サイトを見る
-              <HiExternalLink className="w-3 h-3 ml-1" />
-            </a>
-          </div>
-        )}
       </div>
     </div>
   );

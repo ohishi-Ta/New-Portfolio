@@ -52,10 +52,14 @@ export default function LoginPage() {
           {/* ロゴ・タイトル */}
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-900 font-figtree">
+              TAKATO OISHI<br />
               PORTFOLIO SITE
             </h1>
             <p className="mt-2 text-sm text-gray-600">
               アカウントにログイン
+            </p>
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              お渡ししているユーザー/パスワードで<br/>ログインして下さい
             </p>
           </div>
 
@@ -103,7 +107,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 rounded-lg font-medium hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-blue-700"
+              className="w-full bg-primary text-white py-3 rounded-lg font-medium hover:opacity-75 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-blue-600 disabled:hover:to-blue-700 cursor-pointer"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
@@ -135,7 +139,7 @@ export default function LoginPage() {
               アカウントをお持ちでない方は
               <Link 
                 href="/signup"
-                className="ml-1 font-medium text-blue-600 hover:text-blue-500 transition-colors"
+                className="ml-1 font-medium text-blue-600 hover:text-accent transition-colors"
               >
                 新規登録
               </Link>

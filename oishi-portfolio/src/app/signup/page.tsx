@@ -153,10 +153,14 @@ export default function SignupPage() {
           {/* タイトル */}
           <div className="text-center">
             <h1 className="text-3xl font-bold text-gray-900 font-figtree">
+              TAKATO OISHI<br />
               PORTFOLIO SITE
             </h1>
             <p className="mt-2 text-sm text-gray-600">
               新規アカウント作成
+            </p>
+            <p className="mt-2 text-sm text-red-600 font-bold">
+              お渡ししているユーザー/パスワードで<br/>ログインして下さい
             </p>
           </div>
 
@@ -181,7 +185,7 @@ export default function SignupPage() {
                 required
                 disabled={loading}
                 placeholder="半角英数字で入力"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
 
@@ -197,7 +201,7 @@ export default function SignupPage() {
                 required
                 disabled={loading}
                 placeholder="example@email.com"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
 
@@ -213,7 +217,7 @@ export default function SignupPage() {
                 required
                 disabled={loading}
                 placeholder="8文字以上で入力"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
               />
               <p className="mt-1 text-xs text-gray-500">
                 ※ 大文字・小文字・数字・記号を含む8文字以上
@@ -232,14 +236,14 @@ export default function SignupPage() {
                 required
                 disabled={loading}
                 placeholder="パスワードを再入力"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all duration-200 disabled:bg-gray-50 disabled:text-gray-500"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 rounded-lg font-medium hover:from-purple-700 hover:to-purple-800 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-500 cursor-pointer text-white py-3 rounded-lg font-medium hover:opacity-75 transition-all duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center">
