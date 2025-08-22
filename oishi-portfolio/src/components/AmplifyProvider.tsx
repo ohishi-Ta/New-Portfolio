@@ -3,6 +3,8 @@
 
 import { Amplify } from 'aws-amplify'
 import { useEffect, useState } from 'react'
+import { I18n } from 'aws-amplify/utils'
+import { JA } from '../translations/ja'
 
 export default function AmplifyProvider({ children }: { children: React.ReactNode }) {
   const [isConfigured, setIsConfigured] = useState(false)
@@ -14,7 +16,13 @@ export default function AmplifyProvider({ children }: { children: React.ReactNod
         const response = await fetch('/api/config')
         const config = await response.json()
         
+        // Amplifyの設定
         Amplify.configure(config, { ssr: true })
+
+        // 日本語化の設定
+        I18n.putVocabularies(JA)
+        I18n.setLanguage('ja')
+
         setIsConfigured(true)
       } catch (error) {
         console.error('Failed to configure Amplify:', error)
@@ -33,7 +41,7 @@ export default function AmplifyProvider({ children }: { children: React.ReactNod
         alignItems: 'center', 
         height: '100vh' 
       }}>
-        <div>Loading...</div>
+        <div>読み込み中...</div>
       </div>
     )
   }

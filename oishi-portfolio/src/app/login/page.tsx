@@ -5,6 +5,7 @@ import { useState, FormEvent } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { signIn } from 'aws-amplify/auth'
 import Link from 'next/link'
+import { I18n } from 'aws-amplify/utils'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -31,16 +32,26 @@ export default function LoginPage() {
         router.refresh()
       }
     } catch (err) {
-      const error = err as Error;
-      if (error.message === 'UserNotFoundException') {
-        setError('ユーザーが見つかりません')
-      } else if (error.message === 'NotAuthorizedException') {
-        setError('ユーザー名またはパスワードが正しくありません')
-      } else if (error.message === 'UserNotConfirmedException') {
-        setError('メールアドレスの確認が完了していません')
+      const error = err as any;
+      
+      // I18nで翻訳を試みる
+      const translatedMessage = I18n.get(error.message)
+      
+      // 翻訳されたメッセージがある場合はそれを使用
+      if (translatedMessage && translatedMessage !== error.message) {
+        setError(translatedMessage)
+      } 
+      // 翻訳されていない場合は、従来のマッピング（フォールバック）
+      else if (error.name === 'UserNotFoundException' || error.message === 'UserNotFoundException') {
+        setError(I18n.get('User does not exist.'))
+      } else if (error.name === 'NotAuthorizedException' || error.message === 'NotAuthorizedException') {
+        setError(I18n.get('Incorrect username or password.'))
+      } else if (error.name === 'UserNotConfirmedException' || error.message === 'UserNotConfirmedException') {
+        setError(I18n.get('User is not confirmed.'))
       } else {
-        setError(error.message || 'ログインに失敗しました')
+        setError(error.message || I18n.get('Login failed'))
       }
+      
       setLoading(false)
     }
   }
