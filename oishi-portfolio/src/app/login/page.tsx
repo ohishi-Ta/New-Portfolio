@@ -32,7 +32,7 @@ export default function LoginPage() {
         router.refresh()
       }
     } catch (err) {
-      const error = err as any;
+      const error = err as Error;
       
       // I18nで翻訳を試みる
       const translatedMessage = I18n.get(error.message)
