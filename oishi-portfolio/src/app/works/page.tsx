@@ -247,7 +247,7 @@ function WorksContent() {
       >
         <div className="modal__overlay" tabIndex={-1} data-micromodal-close>
           <div 
-            className="modal__container bg-white rounded-xl shadow-2xl max-w-5xl w-full mx-4 max-h-[95vh] overflow-hidden"
+            className="modal__container bg-white rounded-xl shadow-2xl max-w-7xl w-full mx-4 max-h-[95vh] overflow-hidden"
             role="dialog" 
             aria-modal="true" 
             aria-labelledby="work-modal-title"
