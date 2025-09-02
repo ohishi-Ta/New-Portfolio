@@ -25,7 +25,7 @@ const SkillSet = () => {
   ];
 
   const infraSkills = [
-    { name: 'AWS', level: 80, color: 'text-orange-400' },
+    { name: 'AWS', level: 60, color: 'text-orange-400' },
     { name: 'Docker', level: 60, color: 'text-blue-700' },
   ];
   
