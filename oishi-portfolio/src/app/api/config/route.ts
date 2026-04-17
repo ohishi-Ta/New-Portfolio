@@ -11,7 +11,7 @@ export async function GET() {
         signUpVerificationMethod: 'code' as const,
         loginWith: {
           username: true,
-          email: false
+          email: true
         }
       }
     }

@@ -23,16 +23,38 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
 
+    const normalizedUsername = username.trim()
+
+    if (!normalizedUsername) {
+      setError('ユーザー名を入力してください')
+      setLoading(false)
+      return
+    }
+
     try {
-      const { isSignedIn } = await signIn({ username, password })
+      const { isSignedIn, nextStep } = await signIn({ username: normalizedUsername, password })
       
       if (isSignedIn) {
-        localStorage.setItem('username', username)
+        localStorage.setItem('username', normalizedUsername)
         router.push(from)
         router.refresh()
+        return
       }
+
+      if (nextStep?.signInStep) {
+        setError(`追加の認証ステップが必要です: ${nextStep.signInStep}`)
+      } else {
+        setError(I18n.get('Login failed'))
+      }
+      setLoading(false)
     } catch (err) {
       const error = err as Error;
+
+      if (error.message?.includes('Unable to verify secret hash for client')) {
+        setError('Cognito App Clientの設定不一致です。Client secretを持たないClient IDを使用してください。')
+        setLoading(false)
+        return
+      }
       
       // I18nで翻訳を試みる
       const translatedMessage = I18n.get(error.message)

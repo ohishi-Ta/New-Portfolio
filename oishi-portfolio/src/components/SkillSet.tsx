@@ -22,19 +22,22 @@ const SkillSet = () => {
     { name: 'Node.js', level: 30, color: 'text-green-600' },
     { name: 'Python', level: 30, color: 'text-green-900' },
     { name: 'PHP ', level: 50, color: 'text-purple-800' },
+    { name: 'Golang', level: 60, color: 'text-indigo-500' },
   ];
 
   const infraSkills = [
     { name: 'AWS', level: 60, color: 'text-orange-400' },
-    { name: 'Docker', level: 60, color: 'text-blue-700' },
+    { name: 'Google Cloud', level: 30, color: 'text-blue-400' },
+    { name: 'さくらのクラウド', level: 50, color: 'text-pink-400' },
+    { name: 'Docker', level: 50, color: 'text-blue-700' },
   ];
   
   const cmsSkills = [
     { name: 'WordPress', level: 90, color: 'text-blue-900' },
     { name: 'MovableType', level: 90, color: 'text-blue-400' },
-    { name: 'MicroCMS', level: 60, color: 'text-sky-400' },
-    { name: 'PowerCMS', level: 80, color: 'text-stone-400' },
-    { name: 'PowerCMS X', level: 50, color: 'text-stone-600' },
+    { name: 'microCMS', level: 60, color: 'text-sky-400' },
+    // { name: 'PowerCMS', level: 80, color: 'text-stone-400' },
+    // { name: 'PowerCMS X', level: 50, color: 'text-stone-600' },
     { name: 'HeartCore', level: 70, color: 'text-red-600' },
   ];
 
@@ -64,7 +67,7 @@ const SkillSet = () => {
         key={index} 
         className="bg-white/70 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-gray-200/30 hover:shadow-md hover:bg-white/80 transition-all duration-300 text-center"
       >
-        <div className="relative w-16 h-16 mx-auto mb-3">
+        {/* <div className="relative w-16 h-16 mx-auto mb-3">
           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
             <circle
               cx="18"
@@ -101,7 +104,7 @@ const SkillSet = () => {
               {skill.level}%
             </span>
           </div>
-        </div>
+        </div> */}
         
         <h3 className="font-semibold text-gray-800 text-sm font-figtree">
           {skill.name}
@@ -162,7 +165,7 @@ const SkillSet = () => {
           その他
         </h4>
         <ul>
-            <li>Git</li>
+            <li>Git/GitHub/GitHub Actions(CI/CD)</li>
             <li>Webアクセシビリティ</li>
             <li>Figma</li>
             <li>Adobe Photoshop</li>

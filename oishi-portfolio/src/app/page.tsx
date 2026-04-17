@@ -1,10 +1,11 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import Slider from '../components/Slider';
 import SkillSet from '../components/SkillSet';
 import CareerTimeline from '../components/CareerTimeline';
 import WorksPreview from '../components/WorksPreview';
 import BlogPreview from '../components/BlogPreview';
-import AvatarIframe from '../components/AvatarIframe';
+// import AvatarIframe from '../components/AvatarIframe';
 import ScrollBackgroundController from '../components/ScrollBackgroundController';
 
 const Portfolio = () => {
@@ -39,16 +40,16 @@ const Portfolio = () => {
           </div> 
 
           <div className='home--mv-contents'>
-            <div className='flex justify-between'>
-              <div className=''>
+            <div className='flex flex-col gap-8 md:flex-row md:justify-between'>
+              <div>
                 <h1 className="text-3xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
                   TAKATO OISHI<br />
                   PORTFOLIO SITE
                 </h1>
-                <p className="text-lg md:text-xl text-white">Frontend / AWS Engineer</p>
+                <p className="text-lg md:text-xl text-white">Engineer</p>
                 <div className="mt-10 md:max-w-xl lg:max-w-2xl">
                   <Image 
-                      src="/badge.png" 
+                      src="/badge2.png" 
                       alt="AWS 認定バッジ"
                       width={600}
                       height={200}
@@ -56,7 +57,50 @@ const Portfolio = () => {
                     />
                   </div>
                 </div>
-                <AvatarIframe />
+                <div className="w-full md:max-w-lg">
+                  <div className="mt-20 rounded-2xl bg-white/90 p-5 shadow-sm backdrop-blur-sm">
+                    <h2 className="mt-2 text-xl font-bold text-gray-900">GitHub</h2>
+                    <div className="mt-4 flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-3">
+                      <div className="w-15">
+                      <Image
+                        src="/github.png"
+                        alt="GitHubロゴ"
+                        width={800}
+                        height={240}
+                        className="h-auto w-full"
+                      />
+                      </div>
+                      <Link
+                        href="https://github.com/ohishi-Ta"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                      >
+                        GitHubリポジトリを見る
+                      </Link>
+                    </div>
+                    <h2 className="mt-5 text-xl font-bold text-gray-900">Zenn</h2>
+                    <div className="mt-4 flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-3">
+                      <div className="w-15">
+                      <Image
+                        src="/zenn.png"
+                        alt="Zennロゴ"
+                        width={800}
+                        height={240}
+                        className="h-auto w-full"
+                      />
+                      </div>
+                      <Link
+                        href="https://zenn.dev/t_oishi"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                      >
+                        Zennの記事を見る
+                      </Link>
+                    </div>
+                  </div>
+                </div>
             </div>
             <Slider />
           </div>
@@ -121,6 +165,7 @@ const Portfolio = () => {
             <li>AWS Certified Machine Learning Engineer - Associate 2025年</li>
             <li>AWS Certified Machine Learning - Specialty 2025年</li>
             <li>Google Cloud Cloud Digital Leader 2025年</li>
+            <li>さくらのクラウド検定 2026年</li>
           </ul>
         </div>
 
